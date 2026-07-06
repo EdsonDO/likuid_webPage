@@ -54,7 +54,7 @@ Hemos completado la estructuración base de la plataforma **Likuid**, la organiz
    - Incrementamos su grosor a **`3px`** para dotarlas de mayor fuerza y continuidad visual, manteniendo el efecto de expansión horizontal.
 4. **Cursive en Celeste Sky Blue y Corrección de Altura (Baseline Alignment)**:
    - Cambiamos la tipografía manuscrita fluida `Amsterdam Four` a un color **azul/celeste moderno** (`#38bdf8`) con su respectiva sombra de resplandor.
-   - Para resolver la caída visual y la ruptura de continuidad de las letras manuscritas con respecto a la tipografía Roboto, aplicamos `transform: translateY(-0.16em);` a `.highlight-font` and `.highlight-font-title`. Esto desplaza verticalmente hacia arriba la tipografía manuscrita celeste, alineando de manera perfecta sus baselines visuales en todos los títulos.
+   - Para resolver la caída visual y la ruptura de continuidad de las letras manuscritas con respecto a la tipografía Roboto, aplicamos `transform: translateY(-0.16em);` a `.highlight-font` y `.highlight-font-title`. Esto desplaza verticalmente hacia arriba la tipografía manuscrita celeste, alineando de manera perfecta sus baselines visuales en todos los títulos.
 5. **División del Hero, Ajuste de Wraps y Prevención de Traslapes**:
    - **Spans con white-space nowrap**: En [page.js](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/page.js), forzamos a que las dos líneas del Hero (`Vinculación Sociolaboral` y `Mentoría Universitaria`) utilicen `white-space: nowrap;` y redujimos el font-size de la cabecera a `2.35rem`. Esto previene de manera absoluta que las palabras se rompan en 4 líneas a causa de la columna lateral.
    - **Remoción de Mayúsculas Forzadas**: Eliminamos `text-transform: uppercase` del estilo de títulos seccionales.
@@ -71,7 +71,7 @@ Hemos completado la estructuración base de la plataforma **Likuid**, la organiz
      - **Morfosis Unificada sin Costuras (Seamless Morphing)**: Refactorizamos el cargador ubicándolo dentro del propio contenedor del menú `.pill-nav`. Al iniciar la página, la píldora completa permanece colapsada como un círculo perfecto de `70px` de ancho con el cargador giratorio en el centro. Al finalizar el ciclo de rotación, la imagen del cargador se desvanece y la píldora blanca se expande simétricamente desde su misma masa horizontal, eliminando cualquier desfase de opacidad, solapamiento de sombras o saltos en la interfaz. Once expandido, se revelan el logo grande definitivo y los accesos del menú.
 7. **Remoción de Pedestal y Reflector (Logo Puro)**:
    - Eliminamos completamente el pedestal de tarjeta biselada (`.pedestal`) y el cono reflector de luz superior (`.spotlight`).
-   - Ubicamos el logo puro `logo.png` directamente flotando en su columna visual derecha, aumentamos su tamaño a **`220px`** y conservamos un **brillo blanco tenue** alrededor (`filter: drop-shadow`).
+   - Ubicamos el logo puro `logo.png` directamente flotando en su columna visual derecha, aumentamos su tamaño a **`220px`** y conservamos un **brillo blanco tenue** al rededor (`filter: drop-shadow`).
 8. **Diseño de Fondo Dividido (Split Layout) y Máscara de Scroll**:
    - Dividimos el fondo de la pantalla de forma vertical: la columna izquierda (`.landing-content-col`) que contiene todo el contenido técnico mantiene su color negro, mientras que la columna derecha (`.landing-sidebar-col`) asume un fondo blanco sólido (`#ffffff`) que inicia a partir del límite del contenedor de contenido.
    - La cabecera superior se mantiene en fondo negro continuo a lo largo de todo el ancho del viewport (zona de la "Línea Azul" horizontal).
@@ -84,11 +84,31 @@ Hemos completado la estructuración base de la plataforma **Likuid**, la organiz
    - **Acoplamiento Fluido y Efecto Adhesivo (Sticky)**: Confinamos el shader de WebGL dentro de `.sidebar-chrome-wrapper` utilizando posicionamiento `position: sticky; top: 95px; height: calc(100vh - 95px);`. Esto asegura que el canvas WebGL no exceda el alto del viewport y flote de manera fija acompañando al usuario durante todo el recorrido de scroll de la Landing Page sobre el fondo blanco, ofreciendo un comportamiento suave, libre de gaps y con un rendimiento optimizado al renderizar a tamaño fijo de pantalla.
 10. **Ajuste y Corrección del Título de Disponibilidad**:
     - Reestructuramos la cabecera de la sección de disponibilidad en `page.js` para corregir la separación silábica incorrecta de "Disponibilidad", transformándolo en una palabra completa en fuente normal, y añadiendo al costado el término "Multiplataforma" estilizado con la tipografía manuscrita fluida celeste.
-11. **Eliminación Total de Comentarios y Actualización de .gitignore**:
+11. **Optimización Extrema de Renderizado (Prevención de Lag)**:
+    - **Aislamiento de Estado del Tipeado:** Creamos el componente de hoja `TypewriterText` para encapsular el estado de la escritura automatizada del Hero y del Manifiesto, evitando que cada pulsación de letra vuelva a renderizar todo el árbol padre de la Landing Page.
+    - **Propiedades de Referencia Estable (baseColor e items):** Definimos el color float de WebGL `LIQUID_CHROME_COLOR` y el array de elementos de navegación `PILL_NAV_ITEMS` fuera del componente principal, previniendo la recreación de contextos WebGL de OGL y reloads del PillNav en las mutaciones de estado del Roadmap y acordeones.
+12. **Interactividad en Botones CTA y Easter Egg del Logo en CSS Puro**:
+    - **Buscar Talento:** Al hacer hover, el fondo cambia a celeste brillante (`#38bdf8`) y las letras se vuelven blancas.
+    - **Explorar Oportunidades:** Al hacer hover, el fondo se vuelve blanco sólido y las letras negras.
+    - **Easter Egg en CSS Puro y Escalado del Logo:**
+      - Ubicamos ambos logos en una caja relativa de dimensiones fijas (220px por 220px).
+      - Escalamos el logo oscuro `logo_black.png` a una magnitud de `scale(1.45)` de base para que coincida exactamente con la escala visual del logo claro `logo.png`.
+      - **Doble Outline Fino:** Aplicamos filtros drop-shadow repetidos en CSS (`drop-shadow(1px 0px 0px #ffffff)`) en cuatro direcciones para dibujar un borde blanco fino de `1px` alrededor de la silueta transparente de ambos sellos, sin alterar sus respectivos resplandores suaves (`filter: drop-shadow(0 0 35px)`).
+13. **Acordeones Horizontales Compactos**:
+    - Ajustamos la separación de los paneles reduciendo el gap a `0.75rem` e incrementando el ancho colapsado a `110px`.
+    - **Corrección de Desbordamiento de Texto:** Ocultamos totalmente los títulos `.panel-title` en las secciones colapsadas (`display: none;`) para evitar que las letras se deformen o envuelvan verticalmente a los lados de la numeración `XX` y el icono.
+14. **Perspectiva 3D de Dispositivos de Alta Escala**:
+   - Reemplazamos la ilustración vectorial por un simulador con perspectiva isométrica y efecto de profundidad donde un monitor de escritorio se sitúa al fondo a la izquierda (`rotateY(12deg)`) y un teléfono móvil de gran escala destaca al frente a la derecha (`rotateY(-15deg)`), recortado exactamente a sus 3/4 partes hacia abajo mediante una máscara de contenedor de desbordamiento oculto.
+15. **Timeline Snakey con Progreso Dinámico**:
+   - Creamos una línea temporal reactiva al scroll del usuario, donde una barra de progreso celeste se va deslizando por el eje del roadmap. Al golpear cada dot se ilumina el nodo y se rellena la tarjeta del sprint correspondiente con fondo celeste y texto negro.
+16. **Footer Global Competitivo**:
+   - Integramos un pie de página global para la aplicación con el logo `logotipo_likuid.png`, una descripción de la plataforma, un mapa de enlaces jerárquicos (Recursos y Legal) y un botón interactivo para el Libro de Reclamaciones con su respectivo vector.
+17. **Escritura Inteligente y Cursor de Terminal**:
+   - **Activación por Viewport (IntersectionObserver):** Optimizamos el componente `TypewriterText` para suspender el ciclo de tipeado hasta que el elemento respectivo entra en la zona visible del viewport, evitando ejecuciones invisibles y optimizando los ciclos del procesador.
+   - **Cursor de Bloque Real:** Modificamos el cursor intermitente de la escritura para presentar un bloque rectangular blanco (`#ffffff`) estilizado de forma nativa que parpadea continuamente al ritmo de una terminal.
+18. **Eliminación Total de Comentarios y Actualización de .gitignore**:
     - Realizamos una limpieza profunda de comentarios de desarrollo en [page.js](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/page.js), [landing.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/landing.css), [StaggeredMenuWrapper.tsx](file:///c:/Users/lenovo/Desktop/Likuid_web/src/assets/components/design_elements/StaggeredMenu/StaggeredMenuWrapper.tsx), [migrate-font.js](file:///c:/Users/lenovo/Desktop/Likuid_web/scripts/migrate-font.js) and [fonts.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/assets/fonts/fonts.css) para entregar código limpio y apto para producción.
     - Agregamos directorios de configuración de IDEs (`.vscode/`, `.idea/`), patrones de variables locales (`*.local`, `.env.*.local`), el archivo de directivas del agente `AGENTS.md` y bitácoras de cambios (`walkthrough.md`, `routes.md`) a [.gitignore](file:///c:/Users/lenovo/Desktop/Likuid_web/.gitignore).
-12. **Resumen de Commit Inicial**:
-    - Generamos el archivo consolidado [commit_changes.md](file:///c:/Users/lenovo/Desktop/Likuid_web/commit_changes.md) en la raíz del proyecto para servir de guía estructurada para el commit inicial del repositorio.
 
 ---
 
