@@ -128,13 +128,10 @@
   white-space: nowrap;
 }
 
-/* Línea blanca sólida, más gruesa, sin degradado, con efecto de extensión */
 .title-line {
   flex: 1;
   height: 3px;
-  /* Aumentado a 3px */
   background: #ffffff;
-  /* Sólida blanca sin degradado */
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
@@ -144,14 +141,12 @@
   transform: scaleX(1);
 }
 
-/* Contenedor genérico para alinear párrafos y cajas de contenido al extremo izquierdo */
 .landing-section-content {
   text-align: left;
   line-height: 1.8;
   width: 100%;
 }
 
-/* Wrapper de Hero para Dos Columnas */
 .hero-wrapper {
   display: flex;
   justify-content: space-between;
@@ -175,12 +170,10 @@
 
 .hero-text-content {
   flex: 1.4;
-  /* Aumentado para dar más espacio horizontal al texto */
 }
 
 .landing-hero h1 {
   font-size: 2.35rem;
-  /* Reducido para evitar que el texto se rompa o colisione lateralmente */
   font-weight: 900;
   line-height: 1.35;
   letter-spacing: -0.01em;
@@ -190,7 +183,6 @@
 
 .landing-hero h1 span {
   white-space: nowrap;
-  /* Evita que las líneas se dividan internamente */
 }
 
 .landing-hero p {
@@ -237,10 +229,8 @@
   transform: translateY(-1px);
 }
 
-/* Columna de Imagen: LOGO flotante con brillo blanco, sin pedestal ni spotlight */
 .hero-visual-content {
   flex: 0.6;
-  /* Reducido ligeramente para optimizar el espacio horizontal del texto */
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -256,9 +246,7 @@
 
 .logo-image {
   max-width: 220px;
-  /* Aumentado para compensar el pedestal */
   height: auto;
-  /* Brilla blanco tenuemente */
   filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.35));
   z-index: 2;
   transition: transform 0.3s ease;
@@ -268,11 +256,9 @@
   transform: scale(1.03);
 }
 
-/* Estilos de Tipografía Mixta (VERDE CLARO y subido verticalmente) */
 .highlight-font {
   font-family: 'Amsterdam Four', cursive;
   color: #4ade80;
-  /* Cambiado a Verde Claro */
   text-transform: none;
   font-weight: 400;
   font-size: 1.25em;
@@ -280,8 +266,6 @@
   vertical-align: middle;
   line-height: 1;
   margin: 0 0.15rem;
-
-  /* Desplazamiento vertical para subirlo un poquito y coincidir baselines */
   transform: translateY(-0.16em);
   text-shadow: 0 0 20px rgba(74, 222, 128, 0.15);
 }
@@ -289,7 +273,6 @@
 .highlight-font-title {
   font-family: 'Amsterdam Four', cursive;
   color: #4ade80;
-  /* Cambiado a Verde Claro */
   text-transform: none;
   font-weight: 400;
   font-size: 1.35em;
@@ -297,13 +280,10 @@
   vertical-align: middle;
   line-height: 1;
   margin-left: 0.3rem;
-
-  /* Desplazamiento vertical para subir las letras verdes */
   transform: translateY(-0.16em);
   text-shadow: 0 0 15px rgba(74, 222, 128, 0.15);
 }
 
-/* Grillas y Tarjetas */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -348,7 +328,7 @@
   line-height: 1.6;
 }
 
-/* Bloque de Disponibilidad */
+
 .accessibility-section {
   background-color: #0a0a0a;
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -380,7 +360,6 @@
   align-items: center;
 }
 
-/* Roadmap (Línea de Tiempo) */
 .timeline {
   position: relative;
   margin: 4rem auto 0;

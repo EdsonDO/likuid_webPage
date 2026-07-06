@@ -58,22 +58,25 @@ Hemos completado la estructuración base de la plataforma **Likuid**, la organiz
 5. **División del Hero, Ajuste de Wraps y Prevención de Traslapes**:
    - **Spans con white-space nowrap**: En [page.js](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/page.js), forzamos a que las dos líneas del Hero (`Vinculación Sociolaboral` y `Mentoría Universitaria`) utilicen `white-space: nowrap;` y redujimos el font-size de la cabecera a `2.35rem`. Esto previene de manera absoluta que las palabras se rompan en 4 líneas a causa de la columna lateral.
    - **Remoción de Mayúsculas Forzadas**: Eliminamos `text-transform: uppercase` del estilo de títulos seccionales.
-6. **Nuevo Header Flotante en forma de Píldora con Relieve**:
-   - Diseñamos un nuevo header de **color blanco** con forma de píldora flotante (`border-radius: 35px`, alineado al `8%` del margen izquierdo).
-   - Aplicamos **sombras de relieve 3D biseladas** (`box-shadow` e `inset shadow`) para darle volumen táctil sobre la pantalla.
-   - Integramos la variante oscura del logo `logotipo_black_likuid.png` en el interior izquierdo, y cambiamos el color de los accesos y cortes separadores a color negro para alto contraste.
+6. **Integración y Refactorización del Componente PillNav**:
+   - Rediseñamos el componente `PillNav` para actuar como un único header centrado horizontalmente (`left: 50%`, `transform: translateX(-50%)`).
+   - El logo `logotipo_black_likuid.png` se integra directamente a la izquierda de la píldora principal sin círculo de fondo, y los botones de menú se ubican a la derecha.
+   - **Remoción del Giro y Botón de Menú Móvil**: Eliminamos la animación de giro (`rotate 360`) al hacer hover sobre el logo, de modo que permanece estático. Removemos por completo el botón de menú tipo hamburguesa (`=`) y la estructura del popover móvil.
+   - **Escalado del Logo**: Incrementamos la altura del logotipo dentro del menú de `35px` a `50px` para una perfecta legibilidad.
+   - Los botones inician con estado transparente y texto negro, transicionando a fondo negro y texto blanco mediante la expansión del círculo de hover de GSAP.
+   - Ajustamos la navegación del logo para apuntar directamente a `/`.
+   - **Corrección de Keys Duplicadas**: Ajustamos la generación de la propiedad `key` en los mapas del menú móvil y escritorio para concatenar el índice del elemento (`${item.href}-${i}`), resolviendo la advertencia de React sobre elementos duplicados.
+   - **Animación Secuencial de Entrada con Cargador (GSAP Loader Circle)**:
+     - Diseñamos una transición de entrada donde al cargar la página se presenta en el centro superior un círculo blanco flotante que contiene el logo negro `logo_black.png` girando a 360 grados.
+     - **Morfosis Unificada sin Costuras (Seamless Morphing)**: Refactorizamos el cargador ubicándolo dentro del propio contenedor del menú `.pill-nav`. Al iniciar la página, la píldora completa permanece colapsada como un círculo perfecto de `70px` de ancho con el cargador giratorio en el centro. Al finalizar el ciclo de rotación, la imagen del cargador se desvanece y la píldora blanca se expande simétricamente desde su misma masa horizontal, eliminando cualquier desfase de opacidad, solapamiento de sombras o saltos en la interfaz. Una vez expandido, se revelan el logo grande definitivo y los accesos del menú.
 7. **Remoción de Pedestal y Reflector (Logo Puro)**:
    - Eliminamos completamente el pedestal de tarjeta biselada (`.pedestal`) y el cono reflector de luz superior (`.spotlight`).
    - Ubicamos el logo puro `logo.png` directamente flotando en su columna visual derecha, aumentamos su tamaño a **`220px`** y conservamos un **brillo blanco tenue** alrededor (`filter: drop-shadow`).
-8. **Nuevo Componente PillNav**:
-   - Agregamos el componente animado de barra de navegación `PillNav` en `src/assets/components/design_elements/pill-nav/` con soporte para animaciones de GSAP.
-   - Sanitizamos el componente para integrarse correctamente con Next.js, reemplazando las importaciones de `react-router-dom` por el enrutador federado nativo `next/link` y asegurando tipado TypeScript estricto.
-9. **Eliminación Total de Comentarios y Actualización de .gitignore**:
+8. **Eliminación Total de Comentarios y Actualización de .gitignore**:
    - Realizamos una limpieza profunda de comentarios de desarrollo en [page.js](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/page.js), [landing.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/landing.css), [StaggeredMenuWrapper.tsx](file:///c:/Users/lenovo/Desktop/Likuid_web/src/assets/components/design_elements/StaggeredMenu/StaggeredMenuWrapper.tsx), [migrate-font.js](file:///c:/Users/lenovo/Desktop/Likuid_web/scripts/migrate-font.js) y [fonts.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/assets/fonts/fonts.css) para entregar código limpio y apto para producción.
-   - Agregamos directorios de configuración de IDEs (`.vscode/`, `.idea/`), patrones de variables locales (`*.local`, `.env.*.local`) y el archivo de directivas del agente `AGENTS.md` a [.gitignore](file:///c:/Users/lenovo/Desktop/Likuid_web/.gitignore).
-10. **Resolución de Carga de Fuente y Doble Fallback**:
-    - Copiamos tanto el formato comprimido `.woff2` como el original `.ttf` en el directorio `/public/fonts`.
-    - Agregamos la definición `@font-face` directamente al inicio de [landing.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/landing.css).
+   - Agregamos directorios de configuración de IDEs (`.vscode/`, `.idea/`), patrones de variables locales (`*.local`, `.env.*.local`), el archivo de directivas del agente `AGENTS.md` y bitácoras de cambios (`walkthrough.md`, `routes.md`) a [.gitignore](file:///c:/Users/lenovo/Desktop/Likuid_web/.gitignore).
+9. **Resumen de Commit Inicial**:
+    - Generamos el archivo consolidado [commit_changes.md](file:///c:/Users/lenovo/Desktop/Likuid_web/commit_changes.md) en la raíz del proyecto para servir de guía estructurada para el commit inicial del repositorio.
 
 ---
 

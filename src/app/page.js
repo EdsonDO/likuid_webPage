@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import logotipoBlackLikuid from "@/assets/images/logotipo_black_likuid.png";
 import logoImage from "@/assets/images/logo.png";
+import PillNav from "@/assets/components/design_elements/pill-nav/PillNav";
 import "./landing.css";
 
 export default function LandingPage() {
@@ -29,26 +30,21 @@ export default function LandingPage() {
 
   return (
     <div className="landing-page-body">
-      <header className="landing-header">
-        <div className="header-inner">
-          <div className="header-logo-container">
-            <img 
-              src={logotipoBlackLikuid.src} 
-              alt="Likuid Logo Black" 
-              style={{ height: "35px", width: "auto" }} 
-            />
-          </div>
-          <nav className="header-nav">
-            <Link href="/login" className="header-nav-link">
-              Inicio de Sesión
-            </Link>
-            <div className="header-separator"></div>
-            <Link href="/login" className="header-nav-link">
-              Creación de Cuenta
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <PillNav
+        logo={logotipoBlackLikuid.src}
+        logoAlt="Likuid Logo Black"
+        items={[
+          { label: 'Inicio de Sesión', href: '/login' },
+          { label: 'Creación de Cuenta', href: '/login' }
+        ]}
+        activeHref="/"
+        baseColor="#ffffff"
+        pillColor="#000000"
+        hoveredPillTextColor="#000000"
+        pillTextColor="#ffffff"
+        ease="power2.easeOut"
+        initialLoadAnimation
+      />
 
       <div className="hero-wrapper">
         <div className="hero-text-content">

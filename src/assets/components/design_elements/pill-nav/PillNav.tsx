@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
+import logoBlack from "@/assets/images/logo_black.png";
 import './PillNav.css';
 
 export interface PillNavItem {
@@ -22,7 +23,6 @@ export interface PillNavProps {
   pillColor?: string;
   hoveredPillTextColor?: string;
   pillTextColor?: string;
-  onMobileMenuClick?: () => void;
   initialLoadAnimation?: boolean;
 }
 
@@ -37,20 +37,18 @@ const PillNav: React.FC<PillNavProps> = ({
   pillColor = '#120F17',
   hoveredPillTextColor = '#120F17',
   pillTextColor,
-  onMobileMenuClick,
   initialLoadAnimation = true
 }) => {
   const resolvedPillTextColor = pillTextColor ?? baseColor;
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const circleRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const tlRefs = useRef<(gsap.core.Timeline | null)[]>([]);
   const activeTweenRefs = useRef<(gsap.core.Tween | null)[]>([]);
-  const logoImgRef = useRef<HTMLImageElement>(null);
-  const logoTweenRef = useRef<gsap.core.Tween | null>(null);
-  const hamburgerRef = useRef<HTMLButtonElement>(null);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const navItemsRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLAnchorElement | null>(null);
+  
+  const loaderCircleRef = useRef<HTMLDivElement>(null);
+  const loaderImgRef = useRef<HTMLImageElement>(null);
+  const pillNavRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const layout = () => {
@@ -102,8 +100,6 @@ const PillNav: React.FC<PillNavProps> = ({
       });
     };
 
-    layout();
-
     const onResize = () => layout();
     window.addEventListener('resize', onResize);
 
@@ -111,32 +107,46 @@ const PillNav: React.FC<PillNavProps> = ({
       document.fonts.ready.then(layout).catch(() => {});
     }
 
-    const menu = mobileMenuRef.current;
-    if (menu) {
-      gsap.set(menu, { visibility: 'hidden', opacity: 0, scaleY: 1 });
-    }
-
     if (initialLoadAnimation) {
-      const logoEl = logoRef.current;
-      const navItems = navItemsRef.current;
+      gsap.set(loaderCircleRef.current, { opacity: 1, scale: 1 });
+      gsap.set(loaderImgRef.current, { rotate: 0 });
+      gsap.set(pillNavRef.current, { width: "70px", opacity: 0 });
+      gsap.set([logoRef.current, navItemsRef.current], { opacity: 0, y: 10 });
 
-      if (logoEl) {
-        gsap.set(logoEl, { scale: 0 });
-        gsap.to(logoEl, {
-          scale: 1,
-          duration: 0.6,
-          ease
-        });
-      }
+      const entryTimeline = gsap.timeline();
 
-      if (navItems) {
-        gsap.set(navItems, { width: 0, overflow: 'hidden' });
-        gsap.to(navItems, {
-          width: 'auto',
-          duration: 0.6,
-          ease
-        });
-      }
+      entryTimeline.to(pillNavRef.current, {
+        opacity: 1,
+        duration: 0.3,
+        ease: "power1.out"
+      })
+      .to(loaderImgRef.current, {
+        rotate: 360,
+        duration: 1.2,
+        ease: "power2.inOut"
+      })
+      .to(loaderCircleRef.current, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.3,
+        ease: "power2.in"
+      })
+      .to(pillNavRef.current, {
+        width: "100%",
+        duration: 0.6,
+        ease: "power3.inOut",
+        onComplete: () => {
+          layout();
+        }
+      }, "-=0.15")
+      .fromTo([logoRef.current, navItemsRef.current],
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.4, stagger: 0.08, ease: "power2.out" },
+        "-=0.3"
+      );
+    } else {
+      gsap.set(loaderCircleRef.current, { display: "none" });
+      layout();
     }
 
     return () => window.removeEventListener('resize', onResize);
@@ -164,80 +174,6 @@ const PillNav: React.FC<PillNavProps> = ({
     });
   };
 
-  const handleLogoEnter = () => {
-    const img = logoImgRef.current;
-    if (!img) return;
-    logoTweenRef.current?.kill();
-    gsap.set(img, { rotate: 0 });
-    logoTweenRef.current = gsap.to(img, {
-      rotate: 360,
-      duration: 0.2,
-      ease,
-      overwrite: 'auto'
-    });
-  };
-
-  const toggleMobileMenu = () => {
-    const newState = !isMobileMenuOpen;
-    setIsMobileMenuOpen(newState);
-
-    const hamburger = hamburgerRef.current;
-    const menu = mobileMenuRef.current;
-
-    if (hamburger) {
-      const lines = hamburger.querySelectorAll('.hamburger-line');
-      if (newState) {
-        gsap.to(lines[0], { rotation: 45, y: 3, duration: 0.3, ease });
-        gsap.to(lines[1], { rotation: -45, y: -3, duration: 0.3, ease });
-      } else {
-        gsap.to(lines[0], { rotation: 0, y: 0, duration: 0.3, ease });
-        gsap.to(lines[1], { rotation: 0, y: 0, duration: 0.3, ease });
-      }
-    }
-
-    if (menu) {
-      if (newState) {
-        gsap.set(menu, { visibility: 'visible' });
-        gsap.fromTo(
-          menu,
-          { opacity: 0, y: 10, scaleY: 1 },
-          {
-            opacity: 1,
-            y: 0,
-            scaleY: 1,
-            duration: 0.3,
-            ease,
-            transformOrigin: 'top center'
-          }
-        );
-      } else {
-        gsap.to(menu, {
-          opacity: 0,
-          y: 10,
-          scaleY: 1,
-          duration: 0.2,
-          ease,
-          transformOrigin: 'top center',
-          onComplete: () => {
-            gsap.set(menu, { visibility: 'hidden' });
-          }
-        });
-      }
-    }
-
-    onMobileMenuClick?.();
-  };
-
-  const isExternalLink = (href: string) =>
-    href.startsWith('http://') ||
-    href.startsWith('https://') ||
-    href.startsWith('//') ||
-    href.startsWith('mailto:') ||
-    href.startsWith('tel:') ||
-    href.startsWith('#');
-
-  const isRouterLink = (href: string) => href && !isExternalLink(href);
-
   const cssVars = {
     '--base': baseColor,
     '--pill-bg': pillColor,
@@ -247,34 +183,25 @@ const PillNav: React.FC<PillNavProps> = ({
 
   return (
     <div className="pill-nav-container">
-      <nav className={`pill-nav ${className}`} aria-label="Primary" style={cssVars}>
-        {isRouterLink(items?.[0]?.href) ? (
-          <Link
-            className="pill-logo"
-            href={items[0].href}
-            aria-label="Home"
-            onMouseEnter={handleLogoEnter}
-            role="menuitem"
-            ref={logoRef}
-          >
-            <img src={logo} alt={logoAlt} ref={logoImgRef} />
-          </Link>
-        ) : (
-          <a
-            className="pill-logo"
-            href={items?.[0]?.href || '#'}
-            aria-label="Home"
-            onMouseEnter={handleLogoEnter}
-            ref={logoRef as React.RefObject<HTMLAnchorElement | null>}
-          >
-            <img src={logo} alt={logoAlt} ref={logoImgRef} />
-          </a>
-        )}
+      <nav className={`pill-nav ${className}`} aria-label="Primary" style={cssVars} ref={pillNavRef}>
+        <div className="pill-nav-loader-inner" ref={loaderCircleRef}>
+          <img src={logoBlack.src} alt="Likuid Loader Logo" ref={loaderImgRef} />
+        </div>
 
-        <div className="pill-nav-items desktop-only" ref={navItemsRef}>
+        <Link
+          className="pill-logo"
+          href="/"
+          aria-label="Home"
+          role="menuitem"
+          ref={logoRef}
+        >
+          <img src={logo} alt={logoAlt} />
+        </Link>
+
+        <div className="pill-nav-items" ref={navItemsRef}>
           <ul className="pill-list" role="menubar">
             {items.map((item, i) => (
-              <li key={item.href || `item-${i}`} role="none">
+              <li key={`${item.href}-${i}`} role="none">
                 {isRouterLink(item.href) ? (
                   <Link
                     role="menuitem"
@@ -326,45 +253,19 @@ const PillNav: React.FC<PillNavProps> = ({
             ))}
           </ul>
         </div>
-
-        <button
-          className="mobile-menu-button mobile-only"
-          onClick={toggleMobileMenu}
-          aria-label="Toggle menu"
-          ref={hamburgerRef}
-        >
-          <span className="hamburger-line" />
-          <span className="hamburger-line" />
-        </button>
       </nav>
-
-      <div className="mobile-menu-popover mobile-only" ref={mobileMenuRef} style={cssVars}>
-        <ul className="mobile-menu-list">
-          {items.map((item, i) => (
-            <li key={item.href || `mobile-item-${i}`}>
-              {isRouterLink(item.href) ? (
-                <Link
-                  href={item.href}
-                  className={`mobile-menu-link${activeHref === item.href ? ' is-active' : ''}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ) : (
-                <a
-                  href={item.href}
-                  className={`mobile-menu-link${activeHref === item.href ? ' is-active' : ''}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 };
+
+const isExternalLink = (href: string) =>
+  href.startsWith('http://') ||
+  href.startsWith('https://') ||
+  href.startsWith('//') ||
+  href.startsWith('mailto:') ||
+  href.startsWith('tel:') ||
+  href.startsWith('#');
+
+const isRouterLink = (href: string) => href && !isExternalLink(href);
 
 export default PillNav;
