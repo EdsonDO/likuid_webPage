@@ -6,15 +6,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "migrate-font": "node scripts/migrate-font.js"
   },
   "dependencies": {
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.23.0",
     "next": "16.2.10",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@types/node": "^26.1.0",
+    "@types/react": "^19.2.17",
     "eslint": "^9",
-    "eslint-config-next": "16.2.10"
+    "eslint-config-next": "16.2.10",
+    "typescript": "^6.0.3",
+    "wawoff2": "^2.0.1"
   }
 }

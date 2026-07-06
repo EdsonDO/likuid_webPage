@@ -1,0 +1,442 @@
+@font-face {
+  font-family: 'Amsterdam Four';
+  src: url('/fonts/Amsterdam-Four.woff2') format('woff2'),
+    url('/fonts/Amsterdam-Four.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.landing-page-body {
+  background-color: #000000;
+  color: #ffffff;
+  min-height: 100vh;
+  font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+  padding: 140px 0 4rem 0;
+}
+
+.landing-header {
+  position: fixed;
+  top: 25px;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  height: 70px;
+  border-radius: 35px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.35),
+    inset 0 2px 4px rgba(255, 255, 255, 1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.header-inner {
+  width: 100%;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.header-nav-link {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s ease;
+}
+
+.header-nav-link:hover {
+  opacity: 0.7;
+}
+
+
+.header-separator {
+  width: 2px;
+  height: 18px;
+  background-color: #000000;
+  opacity: 0.4;
+}
+
+@media (min-width: 769px) {
+  .landing-header {
+    left: 8%;
+    width: 84%;
+    max-width: 850px;
+  }
+
+  .hero-wrapper,
+  .section-title-container,
+  .landing-section-content,
+  .grid-container,
+  .accessibility-section,
+  .timeline {
+    margin-left: 8% !important;
+    margin-right: auto !important;
+    max-width: 850px;
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-header {
+    left: 1.5rem;
+    width: calc(100% - 3rem);
+  }
+
+  .hero-wrapper,
+  .section-title-container,
+  .landing-section-content,
+  .grid-container,
+  .accessibility-section,
+  .timeline {
+    margin-left: 1.5rem !important;
+    margin-right: 1.5rem !important;
+    width: auto;
+  }
+}
+
+/* Contenedor de Títulos */
+.section-title-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  width: 100%;
+  margin: 6rem 0 2.5rem 0;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* Línea blanca sólida, más gruesa, sin degradado, con efecto de extensión */
+.title-line {
+  flex: 1;
+  height: 3px;
+  /* Aumentado a 3px */
+  background: #ffffff;
+  /* Sólida blanca sin degradado */
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.section-title-container.line-visible .title-line {
+  transform: scaleX(1);
+}
+
+/* Contenedor genérico para alinear párrafos y cajas de contenido al extremo izquierdo */
+.landing-section-content {
+  text-align: left;
+  line-height: 1.8;
+  width: 100%;
+}
+
+/* Wrapper de Hero para Dos Columnas */
+.hero-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4rem;
+  margin: 4rem 0 6rem 0;
+}
+
+@media (max-width: 768px) {
+  .hero-wrapper {
+    flex-direction: column;
+    gap: 3rem;
+    text-align: left;
+  }
+
+  .hero-visual-content {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.hero-text-content {
+  flex: 1.4;
+  /* Aumentado para dar más espacio horizontal al texto */
+}
+
+.landing-hero h1 {
+  font-size: 2.35rem;
+  /* Reducido para evitar que el texto se rompa o colisione lateralmente */
+  font-weight: 900;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin: 0 0 1.5rem;
+}
+
+.landing-hero h1 span {
+  white-space: nowrap;
+  /* Evita que las líneas se dividan internamente */
+}
+
+.landing-hero p {
+  font-size: 1.1rem;
+  color: #888888;
+  margin-bottom: 2.5rem;
+  line-height: 1.65;
+}
+
+.hero-ctas {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.cta-button {
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.cta-primary {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.cta-primary:hover {
+  background-color: #e5e5e5;
+  transform: translateY(-1px);
+}
+
+.cta-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  background-color: transparent;
+}
+
+.cta-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
+}
+
+/* Columna de Imagen: LOGO flotante con brillo blanco, sin pedestal ni spotlight */
+.hero-visual-content {
+  flex: 0.6;
+  /* Reducido ligeramente para optimizar el espacio horizontal del texto */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+
+.logo-container-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-image {
+  max-width: 220px;
+  /* Aumentado para compensar el pedestal */
+  height: auto;
+  /* Brilla blanco tenuemente */
+  filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.35));
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: scale(1.03);
+}
+
+/* Estilos de Tipografía Mixta (VERDE CLARO y subido verticalmente) */
+.highlight-font {
+  font-family: 'Amsterdam Four', cursive;
+  color: #4ade80;
+  /* Cambiado a Verde Claro */
+  text-transform: none;
+  font-weight: 400;
+  font-size: 1.25em;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  margin: 0 0.15rem;
+
+  /* Desplazamiento vertical para subirlo un poquito y coincidir baselines */
+  transform: translateY(-0.16em);
+  text-shadow: 0 0 20px rgba(74, 222, 128, 0.15);
+}
+
+.highlight-font-title {
+  font-family: 'Amsterdam Four', cursive;
+  color: #4ade80;
+  /* Cambiado a Verde Claro */
+  text-transform: none;
+  font-weight: 400;
+  font-size: 1.35em;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  margin-left: 0.3rem;
+
+  /* Desplazamiento vertical para subir las letras verdes */
+  transform: translateY(-0.16em);
+  text-shadow: 0 0 15px rgba(74, 222, 128, 0.15);
+}
+
+/* Grillas y Tarjetas */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin: 0 auto;
+}
+
+.feature-card,
+.convince-card {
+  background-color: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.25s ease;
+  text-align: left;
+}
+
+.feature-card:hover,
+.convince-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background-color: #0f0f0f;
+}
+
+.card-icon {
+  margin-bottom: 1.25rem;
+  color: #ffffff;
+  opacity: 0.8;
+}
+
+.feature-card h3,
+.convince-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.feature-card p,
+.convince-card p {
+  color: #888888;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Bloque de Disponibilidad */
+.accessibility-section {
+  background-color: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 3rem;
+  margin: 0 auto;
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .accessibility-section {
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+}
+
+.accessibility-content {
+  flex: 1.2;
+}
+
+.accessibility-devices {
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Roadmap (Línea de Tiempo) */
+.timeline {
+  position: relative;
+  margin: 4rem auto 0;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 6px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3.5rem;
+  text-align: left;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -20px;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #000000;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
+
+.timeline-item.active .timeline-dot {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.timeline-content {
+  background-color: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+}
+
+.timeline-content h4 {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-content p {
+  color: #888888;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
