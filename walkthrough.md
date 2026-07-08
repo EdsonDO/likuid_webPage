@@ -39,76 +39,113 @@ Hemos completado la estructuración base de la plataforma **Likuid**, la organiz
    - **Colores de Animación**: Cambiamos la paleta de capas de transición del menú de verde/teal a un azul claro moderno (`#38bdf8`), aplicando el mismo tono al color de acento (`accentColor`).
 
 ### Fase 4: Conversión Masiva y Inteligente de Fuentes (TTF a WOFF2)
-1. **Soporte de Directorios e Inspección Recursiva**: Optimizamos `scripts/migrate-font.js` para detectar si el argumento proporcionado es un archivo `.ttf` o un directorio completo.
-2. **Deducción de Metadatos de Nombre**: Implementamos lógica inteligente para extraer de manera automatizada la familia tipográfica, peso (`font-weight` de 100 a 900) y estilo (`font-style: italic` o `normal`).
+1. **Soporte de Directorios e Inspección Recursiva**: Desarrollamos `scripts/migrate-font.js` para detectar si el argumento proporcionado es un archivo `.ttf` o un directorio completo.
+2. **Deducción de Metadatos de Nombre**: Implementamos lógica inteligente para extraer de manera automatizada la familia tipográfica, peso y estilo.
 3. **Conversión en Masa**: Corrimos el script procesando las 55 fuentes existentes, comprimiéndolas a WOFF2 y poblando un único archivo consolidado [fonts.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/assets/fonts/fonts.css).
 4. **Carga Global**: Importamos `fonts.css` de manera global en el archivo principal [globals.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/globals.css).
 
 ### Fase 5: Landing Page Premium de Likuid (Tema Oscuro, Tipografía Mixta y Alineación Asimétrica)
 1. **Estilo Monocromático de Alto Contraste**: Modificamos [landing.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/landing.css) para usar una paleta puramente oscura en negros de pantalla OLED (`#000000`) y grises sutiles, con acentos y botones en blanco y plata.
 2. **Alineación Asimétrica con Desplazamiento a la Izquierda**:
-   - Modificamos el diseño para que todo el contenido (cabecera pill, hero, títulos, grids, y timeline) se alinee de manera consistente hacia el **extremo izquierdo** del viewport.
-   - **Desplazamiento Mayor a la Izquierda**: Cambiamos el padding izquierdo de la columna de contenido `.landing-content-col` del `8%` al **`5%`**, otorgándole un respiro visual más amplio y reduciendo la compresión contra la zona blanca lateral.
+   - Modificamos el diseño para que todo el contenido se alinee de manera consistente hacia el **extremo izquierdo** del viewport.
 3. **Títulos con Línea Blanca Sólida de Mayor Grosor**:
-   - Reconfiguramos las líneas decorativas a la derecha de los títulos para que sean de color **blanco sólido** (`#ffffff`), eliminando los degradados.
-   - Incrementamos su grosor a **`3px`** para dotarlas de mayor fuerza y continuidad visual, manteniendo el efecto de expansión horizontal.
+   - Reconfiguramos las líneas decorativas a la derecha de los títulos para que sean de color **blanco sólido** (`#ffffff`) con grosor de **`3px`**.
 4. **Cursive en Celeste Sky Blue y Corrección de Altura (Baseline Alignment)**:
    - Cambiamos la tipografía manuscrita fluida `Amsterdam Four` a un color **azul/celeste moderno** (`#38bdf8`) con su respectiva sombra de resplandor.
-   - Para resolver la caída visual y la ruptura de continuidad de las letras manuscritas con respecto a la tipografía Roboto, aplicamos `transform: translateY(-0.16em);` a `.highlight-font` y `.highlight-font-title`. Esto desplaza verticalmente hacia arriba la tipografía manuscrita celeste, alineando de manera perfecta sus baselines visuales en todos los títulos.
 5. **División del Hero, Ajuste de Wraps y Prevención de Traslapes**:
-   - **Spans con white-space nowrap**: En [page.js](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/page.js), forzamos a que las dos líneas del Hero (`Vinculación Sociolaboral` y `Mentoría Universitaria`) utilicen `white-space: nowrap;` y redujimos el font-size de la cabecera a `2.35rem`. Esto previene de manera absoluta que las palabras se rompan en 4 líneas a causa de la columna lateral.
-   - **Remoción de Mayúsculas Forzadas**: Eliminamos `text-transform: uppercase` del estilo de títulos seccionales.
+   - **Spans con white-space nowrap**: Forzamos a que las dos líneas del Hero utilicen `white-space: nowrap;` y redujimos el font-size de la cabecera a `2.35rem`.
 6. **Integración y Refactorización del Componente PillNav**:
-   - Rediseñamos el componente `PillNav` para actuar como un único header centrado horizontalmente (`left: 50%`, `transform: translateX(-50%)`).
-   - El logo `logotipo_black_likuid.png` se integra directamente a la izquierda de la píldora principal sin círculo de fondo, y los botones de menú se ubican a la derecha.
-   - **Remoción del Giro y Botón de Menú Móvil**: Eliminamos la animación de giro (`rotate 360`) al hacer hover sobre el logo, de modo que permanece estático. Removemos por completo el botón de menú tipo hamburguesa (`=`) y la estructura del popover móvil.
-   - **Escalado del Logo**: Incrementamos la altura del logotipo dentro del menú de `35px` a `50px` para una perfecta legibilidad.
-   - Los botones inician con estado transparente y texto negro, transicionando a fondo negro y texto blanco mediante la expansión del círculo de hover de GSAP.
-   - Ajustamos la navegación del logo para apuntar directamente a `/`.
-   - **Corrección de Keys Duplicadas**: Ajustamos la generación de la propiedad `key` en los mapas del menú móvil y escritorio para concatenar el índice del elemento (`${item.href}-${i}`), resolviendo la advertencia de React sobre elementos duplicados.
-   - **Animación Secuencial de Entrada con Cargador (GSAP Loader Circle)**:
-     - Diseñamos una transición de entrada donde al cargar la página se presenta en el centro superior un círculo blanco flotante que contiene el logo negro `logo_black.png` girando a 360 grados.
-     - **Morfosis Unificada sin Costuras (Seamless Morphing)**: Refactorizamos el cargador ubicándolo dentro del propio contenedor del menú `.pill-nav`. Al iniciar la página, la píldora completa permanece colapsada como un círculo perfecto de `70px` de ancho con el cargador giratorio en el centro. Al finalizar el ciclo de rotación, la imagen del cargador se desvanece y la píldora blanca se expande simétricamente desde su misma masa horizontal, eliminando cualquier desfase de opacidad, solapamiento de sombras o saltos en la interfaz. Once expandido, se revelan el logo grande definitivo y los accesos del menú.
+   - El logo `logotipo_black_likuid.png` se integra directamente a la izquierda de la píldora principal sin círculo de fondo.
+   - **Automorfosis Unificada sin Costuras (Seamless Morphing)**: Refactorizamos el cargador ubicándolo dentro del propio contenedor del menú `.pill-nav`. Al iniciar la página, la píldora completa permanece colapsada como un círculo perfecto con el cargador giratorio en el centro. Al finalizar el ciclo de rotación, la píldora blanca se expande simétricamente desde su misma masa horizontal.
 7. **Remoción de Pedestal y Reflector (Logo Puro)**:
-   - Eliminamos completamente el pedestal de tarjeta biselada (`.pedestal`) y el cono reflector de luz superior (`.spotlight`).
    - Ubicamos el logo puro `logo.png` directamente flotando en su columna visual derecha, aumentamos su tamaño a **`220px`** y conservamos un **brillo blanco tenue** al rededor (`filter: drop-shadow`).
 8. **Diseño de Fondo Dividido (Split Layout) y Máscara de Scroll**:
-   - Dividimos el fondo de la pantalla de forma vertical: la columna izquierda (`.landing-content-col`) que contiene todo el contenido técnico mantiene su color negro, mientras que la columna derecha (`.landing-sidebar-col`) asume un fondo blanco sólido (`#ffffff`) que inicia a partir del límite del contenedor de contenido.
-   - La cabecera superior se mantiene en fondo negro continuo a lo largo de todo el ancho del viewport (zona de la "Línea Azul" horizontal).
-   - **Degradado Suave Permanente**: Implementamos una máscara de degradado continuo `.landing-header-bg-mask` de negro a transparente en el límite de la cabecera que se sitúa a una altura retraída de `95px` (alineada perfectamente al borde inferior de la píldora de navegación) y con una atenuación de transición más corta (`30px`), garantizando que la transición a blanco siempre sea suave y libre de cortes tanto al inicio como durante el desplazamiento.
-   - **Fondo Dividido de Altura Completa (100% Height Split Background)**: Aplicamos el gradiente dividido (`linear-gradient`) de dos colores directamente al contenedor principal `.landing-main-layout` en lugar de pintar cada columna de manera individual. Esto soluciona los problemas de altura asincrónica causados por diferencias de longitud en el contenido scrollable, garantizando que la franja blanca lateral derecha se extienda de forma inmutable hasta el 100% de la altura real de la página sin dejar espacios vacíos en negro al final de la página.
-   - **Remoción de Relleno del Contenedor Padre**: Eliminamos el `padding-top` y `padding-bottom` del elemento `.landing-page-body` en `landing.css`, removiendo la brecha de aire negra que impedía que el fondo dividido y la columna blanca tocaran de manera absoluta el borde inferior y superior de la pantalla.
+   - Dividimos el fondo de la pantalla de forma vertical: la columna izquierda mantiene su color negro, mientras que la columna derecha asume un fondo blanco sólido (`#ffffff`).
 9. **Integración del Componente Interactivo LiquidChrome**:
-   - Instalamos la dependencia WebGL `ogl` e implementamos el componente dinámico interactivo `LiquidChrome` en `src/assets/components/design_elements/liquid-chrome/`.
-   - Incorporamos el shader de distorsión WebGL reaccionando a la posición del mouse y gestos táctiles, cargando el tono celeste/azul claro (`[0.05, 0.45, 0.75]`) indicado por el usuario.
-   - **Acoplamiento Fluido y Efecto Adhesivo (Sticky)**: Confinamos el shader de WebGL dentro de `.sidebar-chrome-wrapper` utilizando posicionamiento `position: sticky; top: 95px; height: calc(100vh - 95px);`. Esto asegura que el canvas WebGL no exceda el alto del viewport y flote de manera fija acompañando al usuario durante todo el recorrido de scroll de la Landing Page sobre el fondo blanco, ofreciendo un comportamiento suave, libre de gaps y con un rendimiento optimizado al renderizar a tamaño fijo de pantalla.
+   - **Acoplamiento Fluido y Efecto Adhesivo (Sticky)**: Confinamos el shader de WebGL dentro de `.sidebar-chrome-wrapper` utilizando posicionamiento `position: sticky; top: 95px; height: calc(100vh - 95px);`.
 10. **Ajuste y Corrección del Título de Disponibilidad**:
-    - Reestructuramos la cabecera de la sección de disponibilidad en `page.js` para corregir la separación silábica incorrecta de "Disponibilidad", transformándolo en una palabra completa en fuente normal, y añadiendo al costado el término "Multiplataforma" estilizado con la tipografía manuscrita fluida celeste.
+    - Reestructuramos la cabecera de la sección de disponibilidad en `page.js` para corregir la separación silábica incorrecta de "Disponibilidad".
 11. **Optimización Extrema de Renderizado (Prevención de Lag)**:
-    - **Aislamiento de Estado del Tipeado:** Creamos el componente de hoja `TypewriterText` para encapsular el estado de la escritura automatizada del Hero y del Manifiesto, evitando que cada pulsación de letra vuelva a renderizar todo el árbol padre de la Landing Page.
-    - **Propiedades de Referencia Estable (baseColor e items):** Definimos el color float de WebGL `LIQUID_CHROME_COLOR` y el array de elementos de navegación `PILL_NAV_ITEMS` fuera del componente principal, previniendo la recreación de contextos WebGL de OGL y reloads del PillNav en las mutaciones de estado del Roadmap y acordeones.
+    - **Aislamiento de Estado del Tipeado:** Creamos el componente de hoja `TypewriterText` para encapsular el estado de la escritura automatizada.
 12. **Interactividad en Botones CTA y Easter Egg del Logo en CSS Puro**:
-    - **Buscar Talento:** Al hacer hover, el fondo cambia a celeste brillante (`#38bdf8`) y las letras se vuelven blancas.
-    - **Explorar Oportunidades:** Al hacer hover, el fondo se vuelve blanco sólido y las letras negras.
-    - **Easter Egg en CSS Puro y Escalado del Logo:**
-      - Ubicamos ambos logos en una caja relativa de dimensiones fijas (220px por 220px).
-      - Escalamos el logo oscuro `logo_black.png` a una magnitud de `scale(1.45)` de base para que coincida exactamente con la escala visual del logo claro `logo.png`.
-      - **Doble Outline Fino:** Aplicamos filtros drop-shadow repetidos en CSS (`drop-shadow(1px 0px 0px #ffffff)`) en cuatro direcciones para dibujar un borde blanco fino de `1px` alrededor de la silueta transparente de ambos sellos, sin alterar sus respectivos resplandores suaves (`filter: drop-shadow(0 0 35px)`).
+    - **Doble Outline Fino:** Aplicamos filtros drop-shadow repetidos en CSS (`drop-shadow(1px 0px 0px #ffffff)`) en cuatro direcciones para dibujar un borde blanco fino de `1px` alrededor de la silueta transparente de ambos sellos.
 13. **Acordeones Horizontales Compactos**:
-    - Ajustamos la separación de los paneles reduciendo el gap a `0.75rem` e incrementando el ancho colapsado a `110px`.
-    - **Corrección de Desbordamiento de Texto:** Ocultamos totalmente los títulos `.panel-title` en las secciones colapsadas (`display: none;`) para evitar que las letras se deformen o envuelvan verticalmente a los lados de la numeración `XX` y el icono.
+    - **Corrección de Desbordamiento de Texto:** Ocultamos totalmente los títulos `.panel-title` en las secciones colapsadas (`display: none;`).
 14. **Perspectiva 3D de Dispositivos de Alta Escala**:
-   - Reemplazamos la ilustración vectorial por un simulador con perspectiva isométrica y efecto de profundidad donde un monitor de escritorio se sitúa al fondo a la izquierda (`rotateY(12deg)`) y un teléfono móvil de gran escala destaca al frente a la derecha (`rotateY(-15deg)`), recortado exactamente a sus 3/4 partes hacia abajo mediante una máscara de contenedor de desbordamiento oculto.
+   - Reemplazamos la ilustración por un simulador con perspectiva isométrica y efecto de profundidad de monitor y teléfono móvil.
 15. **Timeline Snakey con Progreso Dinámico**:
-   - Creamos una línea temporal reactiva al scroll del usuario, donde una barra de progreso celeste se va deslizando por el eje del roadmap. Al golpear cada dot se ilumina el nodo y se rellena la tarjeta del sprint correspondiente con fondo celeste y texto negro.
+   - Creamos una línea temporal reactiva al scroll del usuario, donde una barra de progreso celeste se va deslizando por el eje del roadmap.
 16. **Footer Global Competitivo**:
    - Integramos un pie de página global para la aplicación con el logo `logotipo_likuid.png`, una descripción de la plataforma, un mapa de enlaces jerárquicos (Recursos y Legal) y un botón interactivo para el Libro de Reclamaciones con su respectivo vector.
 17. **Escritura Inteligente y Cursor de Terminal**:
-   - **Activación por Viewport (IntersectionObserver):** Optimizamos el componente `TypewriterText` para suspender el ciclo de tipeado hasta que el elemento respectivo entra en la zona visible del viewport, evitando ejecuciones invisibles y optimizando los ciclos del procesador.
-   - **Cursor de Bloque Real:** Modificamos el cursor intermitente de la escritura para presentar un bloque rectangular blanco (`#ffffff`) estilizado de forma nativa que parpadea continuamente al ritmo de una terminal.
-18. **Eliminación Total de Comentarios y Actualización de .gitignore**:
-    - Realizamos una limpieza profunda de comentarios de desarrollo en [page.js](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/page.js), [landing.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/landing.css), [StaggeredMenuWrapper.tsx](file:///c:/Users/lenovo/Desktop/Likuid_web/src/assets/components/design_elements/StaggeredMenu/StaggeredMenuWrapper.tsx), [migrate-font.js](file:///c:/Users/lenovo/Desktop/Likuid_web/scripts/migrate-font.js) and [fonts.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/assets/fonts/fonts.css) para entregar código limpio y apto para producción.
-    - Agregamos directorios de configuración de IDEs (`.vscode/`, `.idea/`), patrones de variables locales (`*.local`, `.env.*.local`), el archivo de directivas del agente `AGENTS.md` y bitácoras de cambios (`walkthrough.md`, `routes.md`) a [.gitignore](file:///c:/Users/lenovo/Desktop/Likuid_web/.gitignore).
+   - **Activación por Viewport (IntersectionObserver):** Optimización de `TypewriterText` para suspender el tipeado hasta que el elemento respectivo entra en la zona visible del viewport.
+   - **Cursor de Bloque Real:** Cursor intermitente rectangular blanco (`#ffffff`) que parpadea continuamente al ritmo de una terminal.
+
+---
+
+## Fase 6: Adaptación e Integración de Super-Componente de Login (ONEKORA a LIKUID)
+1. **Traducción de Tailwind a CSS Nativo**:
+   - Creamos el archivo de estilos consolidado [login-shared.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/assets/components/design_elements/login-page-shared/login-shared.css) traduciendo todas las clases de utilidad de Tailwind en reglas semánticas y variables HSL.
+2. **Remoción de Dependencias Externas (Framer Motion y Radix UI)**:
+   - **Fondo Animado con GSAP (BallpitBackground):** Reescribimos el componente `ballpit-background.tsx` utilizando la librería GSAP para animar las órbitas de las burbujas celestes.
+   - **HTML5 Semántico:** Reemplazamos Radix Checkbox y Slot por etiquetas nativas `<input type="checkbox">` y `<button>` en `checkbox.tsx` y `button.tsx` internos de `ui/`.
+   - **Validación Manual de Servidor:** Removimos la librería `zod` de `login.action.ts`, programando un validador manual robusto y eficiente en JavaScript.
+3. **Hard-coding de Credenciales de Inicio de Sesión**:
+   - Programamos la Server Action para validar de forma local las siguientes credenciales simuladas:
+     - **edsondionicioo@gmail.com** con clave **12345** redirige a `/student`.
+     - **dannielsmn@gmail.com** con clave **12345** redirige a `/client`.
+     - Cualquier otra combinación deniega el acceso con un mensaje de banner de estado en rojo.
+4. **Branding de Likuid en Login**:
+   - Reemplazamos la portada Onekora por un diseño OLED negro profundo.
+   - Montamos el logo puro `logo.png` a la izquierda con su correspondiente outline blanco fino y brillo sutil.
+5. **Delegación de Ruta App Router**:
+   - Modificamos [page.js](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/login/page.js) para delegar de forma directa el renderizado al super-componente adaptado y sanitizado de la carpeta compartida.
+
+---
+
+## Fase 7: Compactación y Ajuste de Escala Visual (Mejoras UX/UI)
+1. **Reducción General de Spacings y Márgenes**:
+   - Achicamos los márgenes de los títulos seccionales en `landing.css` a `4rem 0 1.5rem 0` para una lectura vertical mucho más fluida.
+   - Redujimos el padding superior general de la columna de contenido izquierda de `140px` a `110px` para ajustarse al menú más bajo.
+2. **Escala de Fuentes**:
+   - Redujimos la tipografía principal del Hero de `2.35rem` a `1.9rem` y el párrafo descriptivo a `0.95rem`.
+   - Ajustamos el tamaño de las fuentes de los títulos de secciones a `1.25rem`.
+3. **Optimización de Elementos del Hero y CTAs**:
+   - Redujimos el padding de los botones principales a `0.6rem 1.6rem` y su fuente a `0.85rem` para darles un aspecto moderno de botón píldora.
+4. **Compresión del Header Dock (PillNav)**:
+   - Rediseñamos las dimensiones de `PillNav` reduciendo su altura de `70px` a `54px` (y su radio a `27px`).
+   - Redujimos el tamaño de la tipografía de los botones de navegación a `0.78rem`, su padding a `18px` y la altura del logo dentro de la píldora a `72px` para mantener un balance visual perfecto.
+   - Ajustamos la animación inicial de entrada con GSAP para que el estado de carga comience colapsado simétricamente a un ancho de `54px` antes de expandirse horizontalmente.
+5. **Ajuste de Tarjetas de Acordeón**:
+   - Redujimos la altura máxima de los acordeones horizontales de `280px` a `220px`.
+   - Ajustamos la tipografía interna de las tarjetas (`.panel-number` a `1.2rem`, `.panel-title` a `1rem` y el párrafo del panel expandido a `0.85rem`) con un gap interno menor.
+6. **Reducción de Dispositivos en Perspectiva 3D**:
+   - Redujimos la altura del contenedor de simulación a `200px`.
+   - Ajustamos el monitor de escritorio a `190px` por `120px` y el teléfono a `90px` por `180px`.
+7. **Compresión de Footer**:
+   - Redujimos la altura de los enlaces a `0.75rem`, el logo de footer a `35px` de alto, el texto de descripción a `0.8rem` y el padding general del footer a `2.5rem 5% 1.5rem 5%`.
+8. **Liquid Chrome Intacto**:
+   - Mantuvimos la columna derecha `.landing-sidebar-col` y el shader interactivo de WebGL `LiquidChrome` sin ningún cambio, preservando su comportamiento fluido y su posición intacta según la directiva.
+
+---
+
+## Fase 8: Interconexión de Autenticación, Tipografía Cursive y Ajuste de Inputs Selectores
+1. **Interconexión Directa (Login ⇄ Registro)**:
+   - Modificamos [LoginForm.tsx](file:///c:/Users/lenovo/Desktop/Likuid_web/src/assets/components/design_elements/login-page-shared/components/LoginForm.tsx) para incluir un enlace limpio de navegación hacia el portal de registro (`/register`) junto a la opción de contactar administrador.
+2. **Tipografía Cursive de Alta Definición**:
+   - Modificamos [login-shared.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/assets/components/design_elements/login-page-shared/login-shared.css) asignando la tipografía manuscrita fluida local `'Amsterdam Four', cursive` a los títulos principales `<h2>` de ambas pantallas ("Bienvenido" y "Crear Cuenta") en un color negro profundo sólido (`#000000`) y ajustando el line-height a `1.1`.
+3. **Prevención de Solapamiento de Labels (Selector)**:
+   - Forzamos la clase `has-value` de manera inmutable en el contenedor del selector desplegable de perfil en [RegisterForm.tsx](file:///c:/Users/lenovo/Desktop/Likuid_web/src/assets/components/design_elements/login-page-shared/components/RegisterForm.tsx), manteniendo la etiqueta `Tipo de perfil` en su posición superior flotante desde la carga inicial y eliminando la superposición con el texto de opción por defecto.
+
+---
+
+## Fase 9: Carga de Fuentes Globales, Estabilidad de Altura e Identidad de Slogan
+1. **Definición Global de @font-face**:
+   - Registramos la declaración de la familia tipográfica `'Amsterdam Four'` al inicio de [globals.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/app/globals.css) apuntando a múltiples formatos locales. Esto asegura que la tipografía manuscrita celeste y negra se cargue de forma inmutable al refrescar o navegar entre sub-rutas de autenticación sin recurrir a fuentes del sistema por defecto.
+2. **Continuidad Visual de Alturas**:
+   - Modificamos la tarjeta `.login-card` en [login-shared.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/assets/components/design_elements/login-page-shared/login-shared.css) asignándole una altura fija de **`530px`** en ordenadores de escritorio. Esto nivela los contenedores del login y del registro de forma idéntica, eliminando los saltos verticales y el redimensionamiento del card al alternar de página.
+3. **Slogan de Branding Cursive**:
+   - Modificamos la clase `.login-left-footer p` en [login-shared.css](file:///c:/Users/lenovo/Desktop/Likuid_web/src/assets/components/design_elements/login-page-shared/login-shared.css) para renderizar "Conectando Talento y Empresa" en la fuente `'Amsterdam Four', cursive` en color blanco sólido y un tamaño de `1.6rem`, agregándole un leve brillo resplandeciente para sintonizar con la estética del proyecto.
 
 ---
 

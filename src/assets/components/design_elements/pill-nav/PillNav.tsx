@@ -110,7 +110,7 @@ const PillNav: React.FC<PillNavProps> = ({
     if (initialLoadAnimation) {
       gsap.set(loaderCircleRef.current, { opacity: 1, scale: 1 });
       gsap.set(loaderImgRef.current, { rotate: 0 });
-      gsap.set(pillNavRef.current, { width: "70px", opacity: 0 });
+      gsap.set(pillNavRef.current, { width: "54px", opacity: 0 });
       gsap.set([logoRef.current, navItemsRef.current], { opacity: 0, y: 10 });
 
       const entryTimeline = gsap.timeline();

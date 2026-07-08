@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'Amsterdam Four';
+  src: url('/fonts/Amsterdam-Four.woff2') format('woff2'),
+       url('/fonts/Amsterdam-Four_ttf-400.woff2') format('woff2'),
+       url('/fonts/Amsterdam-Four.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   margin: 0;
   padding: 0;

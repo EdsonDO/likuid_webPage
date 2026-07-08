@@ -275,7 +275,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     if (socialsBlock) {
       const socialsStart = panelInsertTime + panelDuration * 0.4
       tl.to(socialsBlock, { y: 0, opacity: 1, duration: 0.55, ease: 'power3.out' }, socialsStart)
-      
+
       if (userProfileEl) {
         tl.to(userProfileEl, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, socialsStart + 0.3)
       }
@@ -329,7 +329,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
         const socialsBlock = panel.querySelector('.sm-socials') as HTMLElement | null
         const userProfileEl = panel.querySelector('.sm-user-profile') as HTMLElement | null
-        
+
         if (socialsBlock) gsap.set(socialsBlock, { y: 25, opacity: 0 })
         if (userProfileEl) gsap.set(userProfileEl, { y: 20, opacity: 0 })
 
@@ -575,16 +575,14 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           >
             {/* Línea central delgada */}
             <div className="sm-scrollbar-track-line" />
-            {/* Thumb arrastrable */}
+
             <div
               ref={thumbRef}
               className="sm-scrollbar-thumb"
               style={{ top: thumbTop, height: thumbHeight }}
-              onMouseDown={handleThumbMouseDown}
-            />
+              onMouseDown={handleThumbMouseDown} />
           </div>
 
-          {/* ---- Scroll Body (invisible scrollbar nativo) ---- */}
           <div
             ref={scrollBodyRef}
             className="sm-panel-scroll-body"
@@ -687,40 +685,40 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             {displaySocials && socialItems && socialItems.length > 0 && (
               <div className="sm-socials" aria-label="Enlaces de contacto">
                 <a
-                    className="sm-panel-item sm-panel-item--dynamic"
-                    href="#"
-                    onClick={(e) => { e.preventDefault(); setOpenSocials(!openSocials); }}
-                  >
-                    <span className="sm-panel-itemIcon">
-                      <Phone size={20} strokeWidth={2} className="sm-panel-lucide" />
-                    </span>
-                    <span className="sm-panel-labelMask">
-                      <span className="sm-panel-itemLabel">Contacto</span>
-                    </span>
-                    <span className="sm-panel-chevron" style={{
-                      transform: openSocials ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.3s ease',
-                      display: 'inline-flex',
-                      marginLeft: 'auto'
-                    }}>
-                      <ChevronDown size={24} />
-                    </span>
+                  className="sm-panel-item sm-panel-item--dynamic"
+                  href="#"
+                  onClick={(e) => { e.preventDefault(); setOpenSocials(!openSocials); }}
+                >
+                  <span className="sm-panel-itemIcon">
+                    <Phone size={20} strokeWidth={2} className="sm-panel-lucide" />
+                  </span>
+                  <span className="sm-panel-labelMask">
+                    <span className="sm-panel-itemLabel">Contacto</span>
+                  </span>
+                  <span className="sm-panel-chevron" style={{
+                    transform: openSocials ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s ease',
+                    display: 'inline-flex',
+                    marginLeft: 'auto'
+                  }}>
+                    <ChevronDown size={24} />
+                  </span>
                 </a>
                 <ul
                   className="sm-socials-list sm-panel-sublist"
                   role="list"
                   style={{
-                      maxHeight: openSocials ? '300px' : '0',
-                      opacity: openSocials ? '1' : '0',
-                      pointerEvents: openSocials ? 'auto' : 'none',
-                      overflow: 'hidden',
-                      transition: 'max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease',
-                      marginTop: openSocials ? '0.8rem' : '0',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'flex-start',
-                      gap: '0.6rem',
-                      paddingLeft: '2.5rem'
+                    maxHeight: openSocials ? '300px' : '0',
+                    opacity: openSocials ? '1' : '0',
+                    pointerEvents: openSocials ? 'auto' : 'none',
+                    overflow: 'hidden',
+                    transition: 'max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease',
+                    marginTop: openSocials ? '0.8rem' : '0',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    gap: '0.6rem',
+                    paddingLeft: '2.5rem'
                   }}
                 >
                   {socialItems.map((s, i) => (

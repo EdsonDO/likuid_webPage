@@ -14,7 +14,7 @@ const LIQUID_CHROME_COLOR = [0.05, 0.45, 0.75];
 
 const PILL_NAV_ITEMS = [
   { label: 'Inicio de Sesión', href: '/login' },
-  { label: 'Creación de Cuenta', href: '/login' }
+  { label: 'Creación de Cuenta', href: '/register' }
 ];
 
 function TypewriterText({ text, speed = 10, delay = 0, onComplete }) {
@@ -30,7 +30,7 @@ function TypewriterText({ text, speed = 10, delay = 0, onComplete }) {
 
   useEffect(() => {
     if (!containerRef.current) return;
-    
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -51,7 +51,7 @@ function TypewriterText({ text, speed = 10, delay = 0, onComplete }) {
 
     let index = 0;
     let timer;
-    
+
     const runTyping = () => {
       timer = setInterval(() => {
         setDisplayedText(text.slice(0, index + 1));
@@ -96,21 +96,36 @@ export default function LandingPage() {
     const titleContainers = document.querySelectorAll(".section-title-container");
     titleContainers.forEach((el) => observer.observe(el));
 
+    const highlightObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            highlightObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    const highlights = document.querySelectorAll(".threat-highlight");
+    highlights.forEach((el) => highlightObserver.observe(el));
+
     const handleTimelineScroll = () => {
       const timeline = document.querySelector(".timeline");
       const progressLine = document.querySelector(".timeline-progress-line");
       if (!timeline || !progressLine) return;
-      
+
       const rect = timeline.getBoundingClientRect();
       const viewHeight = window.innerHeight;
-      
+
       const start = rect.top - viewHeight * 0.7;
       const total = rect.height;
       const scrolled = -start;
-      
+
       let progress = Math.max(0, Math.min(100, (scrolled / total) * 110));
       progressLine.style.height = `${progress}%`;
-      
+
       const items = document.querySelectorAll(".timeline-item");
       items.forEach((item, idx) => {
         const itemRect = item.getBoundingClientRect();
@@ -126,6 +141,7 @@ export default function LandingPage() {
 
     return () => {
       titleContainers.forEach((el) => observer.unobserve(el));
+      highlights.forEach((el) => highlightObserver.unobserve(el));
       window.removeEventListener("scroll", handleTimelineScroll);
     };
   }, []);
@@ -247,8 +263,8 @@ export default function LandingPage() {
                   </span>
                 </h1>
                 <p className="typing-paragraph" style={{ marginTop: "1.5rem" }}>
-                  <TypewriterText 
-                    text="Conectando el conocimiento técnico universitario con las necesidades de digitalización de las MyPes de la región de Huánuco." 
+                  <TypewriterText
+                    text="Conectando el conocimiento técnico universitario con las necesidades de digitalización de las MyPes de la región de Huánuco."
                     speed={8}
                     onComplete={() => setShowTestimonial(true)}
                   />
@@ -264,45 +280,52 @@ export default function LandingPage() {
                 </div>
               </section>
             </div>
-            
+
             <div className="hero-visual-content">
-              <div className="logo-container-hero">
-                <img 
-                  src={logoImage.src} 
-                  className="logo-image logo-normal" 
-                  alt="Likuid Seal Logo Glow" 
-                />
-                <img 
-                  src={logoBlack.src} 
-                  className="logo-image logo-hover-variant" 
-                  alt="Likuid Seal Logo Black" 
-                />
+              <div className="hero-logo-wrapper">
+                <div className="logo-container-hero">
+                  <img
+                    src={logoImage.src}
+                    className="logo-image logo-normal"
+                    alt="Likuid Seal Logo Glow"
+                  />
+                  <img
+                    src={logoBlack.src}
+                    className="logo-image logo-hover-variant"
+                    alt="Likuid Seal Logo Black"
+                  />
+                </div>
+                <div className="logo-text-amsterdam">
+                  Likuid<sup className="logo-tm">©</sup>
+                </div>
               </div>
             </div>
           </div>
 
           <div id="proposito" className="section-title-container">
+            <div className="title-line-left"></div>
             <h2 className="section-title">
               Por qué <span className="highlight-font-title">lo hacemos</span>
             </h2>
-            <div className="title-line"></div>
+            <div className="title-line-right"></div>
           </div>
 
           <section className="landing-section-content">
-            <p style={{ fontSize: "1.1rem", marginBottom: "1.5rem" }}>
-              El diagnóstico inicial en la <strong>Universidad de Huánuco (UDH)</strong> detectó que los estudiantes enfrentan una alta vulnerabilidad socioeconómica y necesitan generar ingresos flexibles. Sin embargo, las ofertas laborales tradicionales imponen jornadas rígidas de 8 horas que sabotean el rendimiento académico y elevan notablemente el riesgo de deserción escolar.
+            <p style={{ fontSize: "0.95rem", marginBottom: "1.5rem" }}>
+              El diagnóstico inicial en la <strong>Universidad de Huánuco (UDH)</strong> detectó que los estudiantes enfrentan una<br />
+              <span className="threat-highlight" style={{ animationDelay: "0.5s", whiteSpace: "nowrap" }}>alta vulnerabilidad socioeconómica</span> y necesitan generar ingresos flexibles. Sin embargo, las ofertas laborales tradicionales imponen jornadas rígidas de 8 horas que <span className="threat-highlight" style={{ animationDelay: "2s" }}>sabotean el rendimiento académico</span> y elevan notablemente el <span className="threat-highlight" style={{ animationDelay: "3.5s" }}>riesgo de deserción escolar</span>.
             </p>
-            <p style={{ fontSize: "1.1rem", marginBottom: "2.5rem" }}>
-              En paralelo, las microempresas de la región necesitan digitalización y soporte técnico urgente, pero recurren a la informalidad o a la inacción por la falta de un canal seguro y centralizado para encontrar talento disponible.
+            <p style={{ fontSize: "0.95rem", marginBottom: "2.5rem" }}>
+              En paralelo, las microempresas de la región necesitan digitalización y soporte técnico urgente, pero <span className="threat-highlight" style={{ animationDelay: "5s" }}>recurren a la informalidad o a la inacción</span> por la <span className="threat-highlight" style={{ animationDelay: "6.5s" }}>falta de un canal seguro y centralizado</span> para encontrar talento disponible.
             </p>
-            <div style={{ 
-              background: "rgba(255, 255, 255, 0.02)", 
-              border: "1px solid rgba(255, 255, 255, 0.06)", 
-              padding: "2rem", 
+            <div style={{
+              background: "rgba(255, 255, 255, 0.02)",
+              border: "1px solid rgba(255, 255, 255, 0.06)",
+              padding: "2rem",
               borderRadius: "12px",
               color: "#ffffff",
               fontWeight: "500",
-              fontSize: "1.05rem",
+              fontSize: "0.95rem",
               lineHeight: "1.6",
               maxWidth: "850px",
               minHeight: "120px",
@@ -311,8 +334,8 @@ export default function LandingPage() {
               {showTestimonial && (
                 <p className="typing-quote">
                   "
-                  <TypewriterText 
-                    text="Existimos para resolver esta desarticulación, permitiendo que el conocimiento técnico actúe como un motor de reactivación económica local sin perjudicar los estudios de nadie." 
+                  <TypewriterText
+                    text="Existimos para resolver esta desarticulación, permitiendo que el conocimiento técnico actúe como un motor de reactivación económica local sin perjudicar los estudios de nadie."
                     speed={8}
                     onComplete={() => setShowSignature(true)}
                   />
@@ -331,10 +354,11 @@ export default function LandingPage() {
           </section>
 
           <div className="section-title-container">
+            <div className="title-line-left"></div>
             <h2 className="section-title">
               Qué <span className="highlight-font-title">ofrecemos</span>
             </h2>
-            <div className="title-line"></div>
+            <div className="title-line-right"></div>
           </div>
 
           <section className="accordion-wrapper-section">
@@ -359,10 +383,11 @@ export default function LandingPage() {
           </section>
 
           <div className="section-title-container">
+            <div className="title-line-left"></div>
             <h2 className="section-title">
               Garantías <span className="highlight-font-title">de Ingeniería</span>
             </h2>
-            <div className="title-line"></div>
+            <div className="title-line-right"></div>
           </div>
 
           <section className="accordion-wrapper-section">
@@ -387,19 +412,20 @@ export default function LandingPage() {
           </section>
 
           <div className="section-title-container">
+            <div className="title-line-left"></div>
             <h2 className="section-title">
               Disponibilidad <span className="highlight-font-title">Multiplataforma</span>
             </h2>
-            <div className="title-line"></div>
+            <div className="title-line-right"></div>
           </div>
 
           <section className="accessibility-section">
             <div className="accessibility-content">
-              <h3 style={{ fontSize: "1.35rem", marginBottom: "1rem", color: "#ffffff" }}>Compatibilidad Multiplataforma</h3>
-              <p style={{ color: "#cccccc", lineHeight: "1.7", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
+              <h3 style={{ fontSize: "1.2rem", marginBottom: "1rem", color: "#ffffff" }}>Compatibilidad Multiplataforma</h3>
+              <p style={{ color: "#cccccc", lineHeight: "1.7", marginBottom: "1.5rem", fontSize: "0.85rem" }}>
                 Likuid cuenta con una arquitectura web responsiva, optimizada para funcionar con fluidez en todas las plataformas y dispositivos necesarios en el campus y en el campo de trabajo:
               </p>
-              <ul style={{ paddingLeft: "1.2rem", color: "#cccccc", lineHeight: "1.8", fontSize: "0.9rem" }}>
+              <ul style={{ paddingLeft: "1.2rem", color: "#cccccc", lineHeight: "1.8", fontSize: "0.82rem" }}>
                 <li style={{ marginBottom: "0.5rem" }}>
                   <strong>Entorno Web:</strong> Optimizado para computadoras de escritorio y estaciones de trabajo dentro de los laboratorios físicos de computación de la UDH.
                 </li>
@@ -441,14 +467,15 @@ export default function LandingPage() {
           </section>
 
           <div className="section-title-container">
+            <div className="title-line-left"></div>
             <h2 className="section-title">
               Roadmap <span className="highlight-font-title">Ecosistémico</span>
             </h2>
-            <div className="title-line"></div>
+            <div className="title-line-right"></div>
           </div>
 
           <section className="landing-section-content" style={{ marginBottom: "4rem" }}>
-            <p style={{ textAlign: "left", color: "#cccccc", marginBottom: "3rem", fontSize: "1.1rem" }}>
+            <p style={{ textAlign: "left", color: "#cccccc", marginBottom: "3rem", fontSize: "0.95rem" }}>
               Likuid tiene como fin supremo el beneficio y desarrollo socioeconómico de la comunidad universitaria y regional, estructurando sus sprints sobre un modelo social libre de fines de lucro.
             </p>
 
@@ -505,7 +532,7 @@ export default function LandingPage() {
               baseColor={LIQUID_CHROME_COLOR}
               speed={0.2}
               amplitude={0.41}
-              interactive
+              interactive={false}
             />
           </div>
         </div>
