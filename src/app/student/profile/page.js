@@ -23,12 +23,6 @@ export default function StudentProfilePage() {
   const [newLang, setNewLang] = useState("");
   const [newLangLevel, setNewLangLevel] = useState("Básico");
 
-  const [mypes, setMypes] = useState([
-    { id: 1, name: "Panadería Don Lucho", need: "Catálogo de productos autogestionado", status: "Disponible" },
-    { id: 2, name: "Clínica Veterinaria Mascotas", need: "Sistema de reserva de citas y registro", status: "Disponible" },
-    { id: 3, name: "Bodega La Económica", need: "Página web simple para pedidos", status: "Disponible" }
-  ]);
-
   const [saveStatus, setSaveStatus] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
@@ -62,20 +56,11 @@ export default function StudentProfilePage() {
     }
   };
 
-  const handleMypeInteraction = (id) => {
-    setMypes(mypes.map(m => {
-      if (m.id === id) {
-        return { ...m, status: m.status === "Disponible" ? "Postulado" : "Disponible" };
-      }
-      return m;
-    }));
-  };
-
   return (
     <div style={{ maxWidth: "1000px", margin: "0 auto", fontFamily: "system-ui, sans-serif" }}>
       <div className="student-page-header">
         <h1>Mi Perfil</h1>
-        <p>Configura tus habilidades, idiomas e interactúa con las MYPES activas en la plataforma</p>
+        <p>Configura tus habilidades, idiomas e información académica en la plataforma</p>
       </div>
 
       <div className="bento-grid">
@@ -269,51 +254,6 @@ export default function StudentProfilePage() {
               >
                 <span style={{ fontWeight: "600", color: "#334155" }}>{lang.name}</span>
                 <span style={{ fontWeight: "700", color: "#64748b" }}>{lang.level}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bento-card bento-card-large">
-          <h4 style={{ margin: "0 0 0.5rem 0", color: "#0f172a", fontSize: "1.1rem" }}>Interactuar con MYPES locales</h4>
-          <p style={{ fontSize: "0.8rem", color: "#64748b", margin: "0 0 1.25rem 0" }}>
-            Postula a proyectos remunerados de pequeñas y medianas empresas de Huánuco para ganar experiencia en el mundo real.
-          </p>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            {mypes.map((mype) => (
-              <div 
-                key={mype.id} 
-                style={{ 
-                  display: "flex", 
-                  justifyContent: "space-between", 
-                  alignItems: "center", 
-                  backgroundColor: "#f8fafc", 
-                  padding: "1rem", 
-                  borderRadius: "10px", 
-                  border: "1px solid #f1f5f9"
-                }}
-              >
-                <div>
-                  <h5 style={{ margin: "0 0 0.25rem 0", fontSize: "0.95rem", fontWeight: "700", color: "#0f172a" }}>{mype.name}</h5>
-                  <p style={{ margin: 0, fontSize: "0.8rem", color: "#475569" }}><strong>Requerimiento:</strong> {mype.need}</p>
-                </div>
-                <button
-                  onClick={() => handleMypeInteraction(mype.id)}
-                  style={{
-                    backgroundColor: mype.status === "Disponible" ? "#000000" : "#16a34a",
-                    color: "#ffffff",
-                    border: "none",
-                    padding: "0.4rem 1rem",
-                    borderRadius: "15px",
-                    fontSize: "0.8rem",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    transition: "background-color 0.2s"
-                  }}
-                >
-                  {mype.status === "Disponible" ? "Postular con mi Perfil" : "Postulado"}
-                </button>
               </div>
             ))}
           </div>

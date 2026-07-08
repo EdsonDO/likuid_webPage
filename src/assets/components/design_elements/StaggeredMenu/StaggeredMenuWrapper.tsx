@@ -6,8 +6,12 @@ import logotipoBlackLikuid from "@/assets/images/logotipo_black_likuid.png";
 
 import logotipoLikuid from "@/assets/images/logotipo_likuid.png";
 
+import { usePathname } from "next/navigation";
+
 export default function StaggeredMenuIntegration() {
-  const config = getSidebarConfig("student");
+  const pathname = usePathname();
+  const role = pathname && pathname.startsWith("/client") ? "client" : "student";
+  const config = getSidebarConfig(role);
 
   const stgItems = config.navMain.map((item) => ({
     label: item.title,

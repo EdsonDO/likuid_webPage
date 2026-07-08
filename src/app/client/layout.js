@@ -3,7 +3,7 @@ import StaggeredMenuIntegration from "@/assets/components/design_elements/Stagge
 import logotipoLikuid from "@/assets/images/logotipo_likuid.png";
 import { AIChatbot } from "@/assets/components/design_elements/AIChatbot/AIChatbot";
 
-export default function StudentLayout({ children }) {
+export default function ClientLayout({ children }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", backgroundColor: "#ffffff", color: "#111111" }}>
       <StaggeredMenuIntegration />

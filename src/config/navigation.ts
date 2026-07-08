@@ -1,4 +1,4 @@
-import { Home, User, Folder, Star, FileText, Briefcase, Users, Settings, LogOut } from "lucide-react";
+import { Home, User, Folder, Star, FileText, Briefcase, Users, Settings, LogOut, PlusCircle, Search, Mail } from "lucide-react";
 
 export interface NavigationConfig {
   user: {
@@ -20,6 +20,47 @@ export interface NavigationConfig {
 }
 
 export function getSidebarConfig(role = "student"): NavigationConfig {
+  if (role === "client") {
+    return {
+      user: {
+        name: "Danniels Martel Neira",
+        email: "dannielsmn@gmail.com",
+        avatar: ""
+      },
+      navMain: [
+        { 
+          title: "Inicio", 
+          url: "/client", 
+          icon: Home 
+        },
+        {
+          title: "Publicar Trabajo",
+          url: "/client#post-job",
+          icon: PlusCircle
+        },
+        {
+          title: "Buscar Talento",
+          url: "/client#talent-search",
+          icon: Search
+        },
+        {
+          title: "Mensajes",
+          url: "/client#messages",
+          icon: Mail
+        },
+        {
+          title: "Mi Empresa",
+          url: "/client#company",
+          icon: User
+        }
+      ],
+      systemNav: [
+        { title: "Configuración", url: "/settings", icon: Settings },
+        { title: "Cerrar Sesión", url: "/login", icon: LogOut }
+      ]
+    };
+  }
+
   return {
     user: {
       name: "Edson Solo",
