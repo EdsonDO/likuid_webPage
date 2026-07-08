@@ -2,6 +2,9 @@
 import React from "react";
 import StaggeredMenu from "./StaggeredMenu";
 import { getSidebarConfig } from "@/config/navigation";
+import logotipoBlackLikuid from "@/assets/images/logotipo_black_likuid.png";
+
+import logotipoLikuid from "@/assets/images/logotipo_likuid.png";
 
 export default function StaggeredMenuIntegration() {
   const config = getSidebarConfig("student");
@@ -36,9 +39,10 @@ export default function StaggeredMenuIntegration() {
       userProfile={userProfile}
       accentColor="#38bdf8"
       menuButtonColor="#ffffff"
-      menuButtonBg="#1B4332"
-      openMenuButtonBg="#ffffff"
-      openMenuButtonColor="#000000"
+      menuButtonBg="#000000"
+      openMenuButtonBg="#000000"
+      openMenuButtonColor="#ffffff"
+      panelLogoUrl={logotipoLikuid.src}
     />
   );
 }

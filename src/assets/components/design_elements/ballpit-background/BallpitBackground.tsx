@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import "./BallpitBackground.css";
 
 interface Blob {
   id: number;

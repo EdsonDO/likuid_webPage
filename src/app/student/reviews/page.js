@@ -1,53 +1,124 @@
 import { StarIcon } from "@/assets/components/Icons";
+import "./reviews.css";
+
+const REVIEWS_DATA = [
+  {
+    project: "Onekora",
+    date: "2026-05-12 10:30",
+    reviewer: "Municipalidad de Huánuco",
+    details: "Implementación integral del sistema de geolocalización de camiones y recolección inteligente.",
+    rating: "5.0",
+    comment: "Desarrollo impecable. Edson asumió toda la arquitectura solo, desde las bases de datos hasta las aplicaciones de choferes. Ahorró meses de presupuesto municipal."
+  },
+  {
+    project: "Petto",
+    date: "2026-06-20 16:15",
+    reviewer: "Clínica Veterinaria San José",
+    details: "Diseño del sistema administrativo de historiales clínicos y control de recetas.",
+    rating: "4.9",
+    comment: "Una solución robusta y limpia. El control de stock de insumos veterinarios funciona a la perfección. Es proactivo y maneja un nivel técnico excepcional."
+  },
+  {
+    project: "Triboulet",
+    date: "2026-06-02 11:45",
+    reviewer: "Lora & Asociados (Consultora Legal)",
+    details: "Integración de pasarela de pago, motor de traducción IA y bot de WhatsApp.",
+    rating: "5.0",
+    comment: "El asistente de traducción legal por inteligencia artificial funciona de maravilla. La integración con la API de WhatsApp es rápida y fluida."
+  }
+];
 
 export default function StudentReviewsPage() {
   return (
-    <div>
-      <h1>Reseñas</h1>
+    <div className="reviews-container">
+      <div className="student-page-header">
+        <h1>Mis Reseñas</h1>
+        <p>Calificaciones y comentarios de proyectos reales validados en la plataforma</p>
+      </div>
 
-      <section style={{ marginBottom: "2rem" }}>
-        <h3>Promedio de Puntajes</h3>
-        <p><strong>Puntaje General:</strong> <StarIcon size={16} /> 4.8 / 5.0</p>
-        <ul>
-          <li><strong>Habilidad Técnica:</strong> 4.9 / 5.0</li>
-          <li><strong>Comunicación:</strong> 4.7 / 5.0</li>
-          <li><strong>Puntualidad:</strong> 4.8 / 5.0</li>
-        </ul>
-      </section>
+      <div className="bento-grid">
+        <div className="bento-card">
+          <h4 style={{ margin: "0 0 1rem 0", color: "#475569" }}>Puntuación General</h4>
+          <div className="rating-header">
+            <span>4.97</span>
+            <div className="rating-stars">
+              <StarIcon size={20} />
+            </div>
+          </div>
+          <p style={{ fontSize: "0.8rem", color: "#64748b", margin: "0.5rem 0 0 0" }}>Basado en 3 proyectos validados</p>
+        </div>
 
-      <section style={{ marginBottom: "2rem" }}>
-        <h3>Listado de Reseñas</h3>
-        <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}>
-          <thead>
-            <tr style={{ borderBottom: "2px solid #ccc", textAlign: "left" }}>
-              <th style={{ padding: "0.5rem" }}>Trabajo</th>
-              <th style={{ padding: "0.5rem" }}>Fecha & Hora</th>
-              <th style={{ padding: "0.5rem" }}>Organización / Individuo</th>
-              <th style={{ padding: "0.5rem" }}>Detalles</th>
-              <th style={{ padding: "0.5rem" }}>Puntuación</th>
-              <th style={{ padding: "0.5rem" }}>Reseña</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style={{ borderBottom: "1px solid #eee" }}>
-              <td style={{ padding: "0.5rem" }}>Frontend Developer Intern</td>
-              <td style={{ padding: "0.5rem" }}>2026-06-15 14:00</td>
-              <td style={{ padding: "0.5rem" }}>Acme Corp</td>
-              <td style={{ padding: "0.5rem" }}>Desarrollo de landing pages con Next.js y CSS.</td>
-              <td style={{ padding: "0.5rem" }}><StarIcon size={16} /> 5/5</td>
-              <td style={{ padding: "0.5rem" }}>"Excelente desempeño y proactividad."</td>
-            </tr>
-            <tr style={{ borderBottom: "1px solid #eee" }}>
-              <td style={{ padding: "0.5rem" }}>Asistente de Base de Datos</td>
-              <td style={{ padding: "0.5rem" }}>2026-03-10 10:30</td>
-              <td style={{ padding: "0.5rem" }}>Laboratorios ABC</td>
-              <td style={{ padding: "0.5rem" }}>Optimización de consultas SQL y migraciones de esquemas.</td>
-              <td style={{ padding: "0.5rem" }}><StarIcon size={16} /> 4.6/5</td>
-              <td style={{ padding: "0.5rem" }}>"Muy buena comunicación y entrega a tiempo."</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+        <div className="bento-card">
+          <h4 style={{ margin: "0 0 1rem 0", color: "#475569" }}>Métricas de Desempeño</h4>
+          <div className="rating-breakdown">
+            <div className="breakdown-row">
+              <span className="breakdown-label">Habilidad Técnica</span>
+              <span className="breakdown-val">5.0 / 5.0</span>
+            </div>
+            <div className="breakdown-row">
+              <span className="breakdown-label">Resolución de Problemas</span>
+              <span className="breakdown-val">5.0 / 5.0</span>
+            </div>
+            <div className="breakdown-row">
+              <span className="breakdown-label">Autonomía de Desarrollo</span>
+              <span className="breakdown-val">5.0 / 5.0</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bento-card">
+          <h4 style={{ margin: "0 0 1rem 0", color: "#475569" }}>Estadísticas de Entrega</h4>
+          <div className="stats-list">
+            <div className="stat-item">
+              <span className="stat-label">Proyectos Completados</span>
+              <span className="stat-val" style={{ color: "#0f172a" }}>3 / 3</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-label">Tasa de Éxito</span>
+              <span className="stat-val">100%</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bento-card bento-card-large">
+          <h4 style={{ margin: "0 0 1rem 0", color: "#0f172a" }}>Historial Detallado de Reseñas</h4>
+          <div className="table-wrapper">
+            <table className="bento-table">
+              <thead>
+                <tr>
+                  <th>Proyecto</th>
+                  <th>Fecha</th>
+                  <th>Reclutador / Empresa</th>
+                  <th>Detalles del Trabajo</th>
+                  <th>Puntaje</th>
+                  <th>Reseña</th>
+                </tr>
+              </thead>
+              <tbody>
+                {REVIEWS_DATA.map((rev, idx) => (
+                  <tr key={idx}>
+                    <td>
+                      <span className="project-tag">{rev.project}</span>
+                    </td>
+                    <td>{rev.date.split(" ")[0]}</td>
+                    <td><strong>{rev.reviewer}</strong></td>
+                    <td>{rev.details}</td>
+                    <td>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.25rem", fontWeight: "700", color: "#fbbf24" }}>
+                        <StarIcon size={14} />
+                        <span style={{ color: "#0f172a" }}>{rev.rating}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <span className="review-text">"{rev.comment}"</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

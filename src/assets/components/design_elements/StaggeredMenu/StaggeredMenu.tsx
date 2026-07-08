@@ -110,12 +110,19 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     const el = scrollBodyRef.current
     if (!el) return
     const { scrollTop, scrollHeight, clientHeight } = el
+    if (scrollHeight <= clientHeight || scrollHeight === 0) {
+      setThumbHeight(clientHeight)
+      setThumbTop(0)
+      setIsScrollable(false)
+      return
+    }
     const ratio = clientHeight / scrollHeight
     const newThumbHeight = Math.max(28, ratio * clientHeight)
     const maxThumbTop = clientHeight - newThumbHeight
-    const newThumbTop = (scrollTop / (scrollHeight - clientHeight)) * maxThumbTop
-    setThumbHeight(newThumbHeight)
-    setThumbTop(newThumbTop)
+    const divisor = scrollHeight - clientHeight
+    const newThumbTop = divisor > 0 ? (scrollTop / divisor) * maxThumbTop : 0
+    setThumbHeight(isNaN(newThumbHeight) ? 28 : newThumbHeight)
+    setThumbTop(isNaN(newThumbTop) ? 0 : newThumbTop)
     setIsScrollable(scrollHeight > clientHeight + 2)
   }, [])
 
@@ -610,6 +617,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                       href={it.link}
                       aria-label={it.ariaLabel}
                       data-index={idx + 1}
+                      data-no-transition={it.subItems && it.subItems.length > 0 ? "true" : undefined}
                       onClick={(e) => {
                         if (it.subItems && it.subItems.length > 0) {
                           e.preventDefault();
@@ -659,7 +667,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                             <a
                               href={sub.link}
                               onClick={(e) => handleItemClick(e, sub.link)}
-                              style={{ color: '#ffffff', fontSize: '0.75rem', textDecoration: 'none', opacity: 0.6, transition: 'opacity 0.2s', fontWeight: 500, display: 'block', transform: 'translateY(-2px)' }}
+                              style={{ color: '#ffffff', fontSize: '0.95rem', textDecoration: 'none', opacity: 0.6, transition: 'opacity 0.2s', fontWeight: 500, display: 'block', transform: 'translateY(-2px)' }}
                               onMouseOver={(e) => e.currentTarget.style.opacity = '1'}
                               onMouseOut={(e) => e.currentTarget.style.opacity = '0.6'}
                             >
@@ -729,7 +737,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                         rel="noopener noreferrer"
                         onClick={(e) => handleItemClick(e as any, s.link)}
                         className="sm-socials-link"
-                        style={{ color: '#ffffff', fontSize: '0.75rem', textDecoration: 'none', opacity: 0.6, transition: 'opacity 0.2s', fontWeight: 500, display: 'block', transform: 'translateY(-2px)' }}
+                        style={{ color: '#ffffff', fontSize: '0.95rem', textDecoration: 'none', opacity: 0.6, transition: 'opacity 0.2s', fontWeight: 500, display: 'block', transform: 'translateY(-2px)' }}
                         onMouseOver={(e) => e.currentTarget.style.opacity = '1'}
                         onMouseOut={(e) => e.currentTarget.style.opacity = '0.6'}
                       >
@@ -740,7 +748,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 </ul>
               </div>
             )}
-          </div> {/* end sm-panel-scroll-body */}
+          </div>
         </aside>
       </div>
     </div>

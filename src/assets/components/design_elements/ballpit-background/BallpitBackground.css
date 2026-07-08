@@ -1,0 +1,12 @@
+.ballpit-background {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.ballpit-blob {
+  position: absolute;
+  border-radius: 50%;
+}

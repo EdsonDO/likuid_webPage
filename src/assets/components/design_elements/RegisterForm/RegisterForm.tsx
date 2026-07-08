@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "../ui/button";
-import { FloatingInput } from "../ui/floating-input";
-import { FloatingPasswordInput } from "../ui/floating-password-input";
-import { FormState } from "../types/form-state.type";
+import { Button } from "../Button/Button";
+import { FloatingInput } from "../FloatingInput/FloatingInput";
+import { FloatingPasswordInput } from "../FloatingPasswordInput/FloatingPasswordInput";
+import { FormState } from "./form-state.type";
 import { Mail, User, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useActionState } from "react";
-import { RegisterFormFields, registerAction } from "../actions/register.action";
+import { RegisterFormFields, registerAction } from "./register.action";
 
 const initialState: FormState<RegisterFormFields> = {
   errors: null,

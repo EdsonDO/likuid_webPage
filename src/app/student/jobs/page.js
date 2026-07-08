@@ -23,59 +23,98 @@ export default function StudentJobsPage() {
   });
 
   return (
-    <div>
-      <h1>Buscar Trabajos</h1>
+    <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+      <div className="student-page-header">
+        <h1>Buscar Trabajos</h1>
+        <p>Buscador de ofertas laborales, proyectos y vacantes activas</p>
+      </div>
 
-      <section style={{ marginBottom: "1.5rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-        <div>
-          <label style={{ display: "block", marginBottom: "0.25rem" }}>Buscar por Trabajo u Organización:</label>
-          <input 
-            type="text" 
-            placeholder="Ej. TechStart o Developer..." 
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            style={{ padding: "0.4rem", width: "250px" }}
-          />
+      <div className="bento-grid">
+        <div className="bento-card" style={{ gridColumn: "span 2" }}>
+          <h4 style={{ margin: "0 0 1rem 0", color: "#475569" }}>Filtros de Búsqueda</h4>
+          <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: "200px" }}>
+              <label style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.85rem", fontWeight: "600", color: "#334155" }}>
+                Buscar por Trabajo u Organización:
+              </label>
+              <input 
+                type="text" 
+                placeholder="Ej. TechStart o Developer..." 
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                style={{ 
+                  padding: "0.5rem 0.75rem", 
+                  width: "100%", 
+                  borderRadius: "8px", 
+                  border: "1px solid #cbd5e1",
+                  fontSize: "0.85rem",
+                  boxSizing: "border-box"
+                }}
+              />
+            </div>
+
+            <div style={{ width: "180px" }}>
+              <label style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.85rem", fontWeight: "600", color: "#334155" }}>
+                Filtrar por Habilidad:
+              </label>
+              <select 
+                value={selectedTag} 
+                onChange={(e) => setSelectedTag(e.target.value)} 
+                style={{ 
+                  padding: "0.5rem 0.75rem", 
+                  width: "100%", 
+                  borderRadius: "8px", 
+                  border: "1px solid #cbd5e1",
+                  fontSize: "0.85rem",
+                  backgroundColor: "#ffffff"
+                }}
+              >
+                <option value="">Todas</option>
+                {allTags.map(tag => (
+                  <option key={tag} value={tag}>{tag}</option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
 
-        <div>
-          <label style={{ display: "block", marginBottom: "0.25rem" }}>Filtrar por Habilidad (Tag):</label>
-          <select 
-            value={selectedTag} 
-            onChange={(e) => setSelectedTag(e.target.value)} 
-            style={{ padding: "0.4rem" }}
-          >
-            <option value="">Todas</option>
-            {allTags.map(tag => (
-              <option key={tag} value={tag}>{tag}</option>
-            ))}
-          </select>
+        <div className="bento-card">
+          <h4 style={{ margin: "0 0 0.5rem 0", color: "#475569" }}>Resultados</h4>
+          <span style={{ fontSize: "2.5rem", fontWeight: "800", color: "#38bdf8" }}>
+            {filteredJobs.length}
+          </span>
+          <p style={{ fontSize: "0.8rem", color: "#64748b", margin: "0.5rem 0 0 0" }}>Vacantes encontradas</p>
         </div>
-      </section>
 
-      <section>
-        <h3>Listado de Trabajos ({filteredJobs.length})</h3>
-        {filteredJobs.length === 0 ? (
-          <p>No se encontraron trabajos con los criterios seleccionados.</p>
-        ) : (
-          <ul style={{ listStyle: "none", padding: 0 }}>
-            {filteredJobs.map(job => (
-              <li key={job.id} style={{ border: "1px solid #ddd", padding: "1rem", marginBottom: "1rem", borderRadius: "4px" }}>
-                <h4>{job.title}</h4>
-                <p><strong>Organización:</strong> {job.org}</p>
-                <p>{job.desc}</p>
-                <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}>
-                  {job.tags.map(tag => (
-                    <span key={tag} style={{ background: "#eee", padding: "0.2rem 0.5rem", borderRadius: "3px", fontSize: "0.75rem" }}>
-                      {tag}
+        <div className="bento-card bento-card-large" style={{ backgroundColor: "transparent", border: "none", boxShadow: "none", padding: 0 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            {filteredJobs.length === 0 ? (
+              <div className="bento-card" style={{ textAlign: "center", padding: "3rem" }}>
+                <p style={{ color: "#64748b", margin: 0 }}>No se encontraron trabajos con los criterios seleccionados.</p>
+              </div>
+            ) : (
+              filteredJobs.map(job => (
+                <div key={job.id} className="bento-card" style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                    <h4 style={{ margin: 0, fontSize: "1.1rem", fontWeight: "700", color: "#0f172a" }}>{job.title}</h4>
+                    <span style={{ fontSize: "0.8rem", fontWeight: "600", color: "#64748b", backgroundColor: "#f8fafc", border: "1px solid #e2e8f0", padding: "0.2rem 0.6rem", borderRadius: "6px" }}>
+                      {job.org}
                     </span>
-                  ))}
+                  </div>
+                  <p style={{ margin: 0, fontSize: "0.875rem", color: "#475569", lineHeight: "1.5" }}>{job.desc}</p>
+                  <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap", borderTop: "1px solid #f1f5f9", paddingTop: "0.75rem" }}>
+                    {job.tags.map(tag => (
+                      <span key={tag} className="project-tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+              ))
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

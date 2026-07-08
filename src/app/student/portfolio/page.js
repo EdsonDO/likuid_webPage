@@ -1,70 +1,50 @@
-import { StarIcon } from "@/assets/components/Icons";
+import "./portfolio.css";
 
 export default function StudentPortfolioPage() {
   return (
-    <div>
-      <h1>Portafolio de Estudiante</h1>
+    <div className="portfolio-container">
+      <div className="student-page-header">
+        <h1>Mi Portafolio</h1>
+        <p>Historial de proyectos, repositorios y habilidades profesionales de Edson Dionicio</p>
+      </div>
 
-      <section style={{ marginBottom: "2rem" }}>
-        <h3>Información General</h3>
-        <p><strong>Nombre:</strong> Juan Pérez</p>
-        <p><strong>Especialidad:</strong> Ingeniería de Software</p>
-        <p><strong>Ciclo:</strong> 8vo Ciclo</p>
-        <p><strong>Descripción:</strong> Apasionado por el desarrollo web y la arquitectura de software.</p>
-      </section>
-
-      <section style={{ marginBottom: "2rem" }}>
-        <h3>Carrusel de Trabajos Destacados (Mock)</h3>
-        <div style={{ border: "1px solid #ccc", padding: "1rem", display: "flex", gap: "1rem", alignItems: "center" }}>
-          <button style={{ padding: "0.5rem" }}>&lt; Anterior</button>
-          <div style={{ flex: 1, textAlign: "center" }}>
-            <h4>Proyecto 1: Sistema de Inventario Inteligente</h4>
-            <p>Implementación de un software de control de stock usando algoritmos predictivos.</p>
-          </div>
-          <button style={{ padding: "0.5rem" }}>Siguiente &gt;</button>
+      <header className="portfolio-header">
+        <h2 className="portfolio-name" style={{ fontSize: "1.8rem" }}>EDSON RAUL DIONICIO ORIHUELA</h2>
+        <p className="portfolio-title">Ingeniero de Software y de Sistemas / Programador Fullstack</p>
+        <div className="portfolio-meta">
+          <span><strong>Especialidad:</strong> Arquitectura e Ingeniería de Sistemas</span>
+          <span><strong>Ciclo:</strong> Egresado / Estudiante UDH</span>
         </div>
+        <div className="portfolio-desc-box">
+          Programador Fullstack autónomo con amplia experiencia diseñando, desarrollando y desplegando
+          arquitecturas de software de extremo a extremo (Frontend, Backend, Motores Matemáticos, Motores de IA, Bases de Datos e Infraestructura de Servidores).
+          Desarrollador único de múltiples plataformas complejas para el sector público municipal, salud animal, educación y gestión de finanzas personales.
+        </div>
+      </header>
+
+      <section className="bento-card" style={{ marginTop: "2rem" }}>
+        <h3 className="portfolio-section-title" style={{ fontSize: "1.2rem", margin: "0 0 1rem 0" }}>Presentación Profesional</h3>
+        <p style={{ fontSize: "0.9rem", color: "#475569", lineHeight: "1.6", margin: 0 }}>
+          Apasionado por resolver problemas complejos a través de código limpio, algoritmos eficientes y arquitecturas escalables. 
+          En mis proyectos actúo como desarrollador de todas las capas, asumiendo la responsabilidad del análisis, 
+          diseño de base de datos, programación del servidor y del cliente móvil/web, así como la configuración y despliegue del entorno productivo.
+        </p>
       </section>
 
-      <section style={{ marginBottom: "2rem" }}>
-        <h3>Listado de Repositorios (GitHub Mock)</h3>
-        <ul>
-          <li><strong>react-dashboard:</strong> Panel de control modular con React Router y Hooks. (<StarIcon size={12} /> 12)</li>
-          <li><strong>neural-net-experiments:</strong> Red neuronal simple programada desde cero. (<StarIcon size={12} /> 8)</li>
-          <li><strong>likuid-prototype:</strong> Prototipo frontend de Vinculación Sociolaboral. (<StarIcon size={12} /> 1)</li>
-        </ul>
-      </section>
-
-      <section style={{ marginBottom: "2rem" }}>
-        <h3>Gráfico de Habilidades (Mock)</h3>
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", maxWidth: "400px" }}>
-          <div>
-            <span>JavaScript / TypeScript:</span>
-            <div style={{ background: "#eee", width: "100%", height: "10px" }}>
-              <div style={{ background: "#333", width: "90%", height: "100%" }}></div>
-            </div>
+      <section className="bento-card" style={{ marginTop: "1.5rem" }}>
+        <h3 className="portfolio-section-title" style={{ fontSize: "1.2rem", margin: "0 0 1rem 0" }}>Información Académica y de Contacto</h3>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div style={{ fontSize: "0.85rem", color: "#475569" }}>
+            <p><strong>Universidad:</strong> Universidad de Huánuco (UDH)</p>
+            <p><strong>Carrera:</strong> Ingeniería de Sistemas y Computación</p>
+            <p><strong>Idiomas:</strong> Español (Nativo), Inglés (Intermedio-Avanzado Técnico)</p>
           </div>
-          <div>
-            <span>Next.js / React:</span>
-            <div style={{ background: "#eee", width: "100%", height: "10px" }}>
-              <div style={{ background: "#333", width: "85%", height: "100%" }}></div>
-            </div>
-          </div>
-          <div>
-            <span>SQL / NoSQL Databases:</span>
-            <div style={{ background: "#eee", width: "100%", height: "10px" }}>
-              <div style={{ background: "#333", width: "70%", height: "100%" }}></div>
-            </div>
+          <div style={{ fontSize: "0.85rem", color: "#475569" }}>
+            <p><strong>Email:</strong> edson.orihuela@udh.edu.pe</p>
+            <p><strong>GitHub:</strong> github.com/edsondionicio</p>
+            <p><strong>Ubicación:</strong> Huánuco, Perú</p>
           </div>
         </div>
-      </section>
-
-      <section style={{ marginBottom: "2rem" }}>
-        <h3>Métodos de Contacto</h3>
-        <ul>
-          <li><strong>Correo:</strong> juan.perez@universidad.edu</li>
-          <li><strong>LinkedIn:</strong> linkedin.com/in/juan-perez-mock</li>
-          <li><strong>GitHub:</strong> github.com/juanperez-mock</li>
-        </ul>
       </section>
     </div>
   );

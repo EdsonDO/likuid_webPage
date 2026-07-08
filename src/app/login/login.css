@@ -13,19 +13,6 @@
   box-sizing: border-box;
 }
 
-.ballpit-background {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.ballpit-blob {
-  position: absolute;
-  border-radius: 50%;
-}
-
 .login-card {
   position: relative;
   z-index: 10;
@@ -247,32 +234,6 @@
   color: #111111;
   outline: none;
   box-sizing: border-box;
-}
-
-.login-select {
-  height: 100%;
-  width: 100%;
-  border: none;
-  background: transparent;
-  padding: 1.15rem 2rem 0 3rem;
-  font-size: 0.85rem;
-  color: #111111;
-  outline: none;
-  box-sizing: border-box;
-  appearance: none;
-  cursor: pointer;
-}
-
-.login-select-arrow {
-  pointer-events: none;
-  position: absolute;
-  top: 50%;
-  right: 0.85rem;
-  transform: translateY(-50%);
-  color: #777777;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .login-visibility-btn {

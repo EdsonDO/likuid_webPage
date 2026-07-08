@@ -1,15 +1,15 @@
 "use client";
 
-import { Button } from "../ui/button";
-import { Checkbox } from "../ui/checkbox";
-import { FloatingInput } from "../ui/floating-input";
-import { FloatingPasswordInput } from "../ui/floating-password-input";
-import { FormState } from "../types/form-state.type";
+import { Button } from "../Button/Button";
+import { Checkbox } from "../Checkbox/Checkbox";
+import { FloatingInput } from "../FloatingInput/FloatingInput";
+import { FloatingPasswordInput } from "../FloatingPasswordInput/FloatingPasswordInput";
+import { FormState } from "./form-state.type";
 import { Mail } from "lucide-react";
 import Link from "next/link";
-import { useActionState, useTransition } from "react";
-import { LoginFormFields } from "../types/login-form-fields.type";
-import { loginAction } from "../actions/login.action";
+import { useActionState } from "react";
+import { LoginFormFields } from "./login-form-fields.type";
+import { loginAction } from "./login.action";
 
 const initialState: FormState<LoginFormFields> = {
   errors: null,

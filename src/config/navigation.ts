@@ -1,4 +1,4 @@
-import { Home, User, Star, FileText, Briefcase, Users, Settings, LogOut } from "lucide-react";
+import { Home, User, Folder, Star, FileText, Briefcase, Users, Settings, LogOut } from "lucide-react";
 
 export interface NavigationConfig {
   user: {
@@ -32,13 +32,18 @@ export function getSidebarConfig(role = "student"): NavigationConfig {
         url: "/student", 
         icon: Home 
       },
+      {
+        title: "Perfil",
+        url: "/student/profile",
+        icon: User
+      },
       { 
         title: "Portafolio", 
         url: "/student/portfolio", 
-        icon: User,
+        icon: Folder,
         items: [
-          { title: "Mis Repositorios", url: "/student/portfolio#repos" },
-          { title: "Habilidades", url: "/student/portfolio#skills" }
+          { title: "Mis Repositorios", url: "/student/portfolio/repos" },
+          { title: "Habilidades", url: "/student/portfolio/skills" }
         ]
       },
       { 

@@ -39,20 +39,30 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 14px 32px;
+  padding: 2.5rem 2rem 1rem 2rem;
   background: transparent;
   pointer-events: none;
   z-index: 20;
 }
 
-.sm-scope .staggered-menu-header>* {
+.sm-scope [data-position='right'] .staggered-menu-header {
+  justify-content: flex-end;
+}
+
+.sm-scope .staggered-menu-header > * {
   pointer-events: auto;
 }
 
 .sm-scope .sm-logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
+  justify-content: center;
   user-select: none;
+  pointer-events: none;
 }
 
 .sm-scope .sm-logo-img {
@@ -240,7 +250,7 @@
   position: relative;
   color: #ffffff;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 1.25rem;
   /* EDITAR AQUI: Tamaño del TEXTO principal */
   cursor: pointer;
   line-height: 1;

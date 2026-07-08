@@ -1,8 +1,8 @@
 "use server";
 
-import { FormState } from "../types/form-state.type";
+import { FormState } from "./form-state.type";
 import { redirect } from "next/navigation";
-import { LoginFormFields } from "../types/login-form-fields.type";
+import { LoginFormFields } from "./login-form-fields.type";
 
 export async function loginAction(
   prevState: FormState<LoginFormFields>,

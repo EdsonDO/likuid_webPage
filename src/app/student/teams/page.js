@@ -11,63 +11,80 @@ export default function StudentTeamsPage() {
   const closedCount = teams.filter(t => t.status === "Cerrado").length;
 
   return (
-    <div>
-      <h1>Equipos de Desarrollo</h1>
+    <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+      <div className="student-page-header">
+        <h1>Equipos de Desarrollo</h1>
+        <p>Grupos de trabajo académico y proyectos colaborativos</p>
+      </div>
 
-      <section style={{ display: "flex", gap: "2rem", marginBottom: "2rem", border: "1px solid #eee", padding: "1rem", borderRadius: "4px" }}>
-        <div>
-          <strong>Equipos Activos:</strong> <span style={{ color: "green" }}>{activeCount}</span>
+      <div className="bento-grid">
+        <div className="bento-card">
+          <h4 style={{ margin: "0 0 0.5rem 0", color: "#475569" }}>Equipos Activos</h4>
+          <span style={{ fontSize: "2.5rem", fontWeight: "800", color: "#16a34a" }}>{activeCount}</span>
         </div>
-        <div>
-          <strong>Equipos Inactivos:</strong> <span style={{ color: "orange" }}>{inactiveCount}</span>
+        <div className="bento-card">
+          <h4 style={{ margin: "0 0 0.5rem 0", color: "#475569" }}>Otros Estados</h4>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" }}>
+            <div style={{ display: "flex", justifycontent: "space-between", fontSize: "0.85rem" }}>
+              <span style={{ fontWeight: 600, color: "#f97316" }}>Inactivos</span>
+              <span style={{ fontWeight: 700 }}>{inactiveCount}</span>
+            </div>
+            <div style={{ display: "flex", justifycontent: "space-between", fontSize: "0.85rem" }}>
+              <span style={{ fontWeight: 600, color: "#dc2626" }}>Cerrados</span>
+              <span style={{ fontWeight: 700 }}>{closedCount}</span>
+            </div>
+          </div>
         </div>
-        <div>
-          <strong>Equipos Cerrados:</strong> <span style={{ color: "red" }}>{closedCount}</span>
+        <div className="bento-card">
+          <h4 style={{ margin: "0 0 0.5rem 0", color: "#475569" }}>Total Participantes</h4>
+          <span style={{ fontSize: "2.5rem", fontWeight: "800", color: "#0f172a" }}>18</span>
         </div>
-      </section>
 
-      <section style={{ marginBottom: "2rem" }}>
-        <h3>Listado de Equipos</h3>
-        <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}>
-          <thead>
-            <tr style={{ borderBottom: "2px solid #ccc", textAlign: "left" }}>
-              <th style={{ padding: "0.5rem" }}>Equipo</th>
-              <th style={{ padding: "0.5rem" }}>Objetivo</th>
-              <th style={{ padding: "0.5rem" }}>Estado</th>
-              <th style={{ padding: "0.5rem" }}>Miembros</th>
-              <th style={{ padding: "0.5rem" }}>Fecha de Formación</th>
-              <th style={{ padding: "0.5rem" }}>Tags</th>
-            </tr>
-          </thead>
-          <tbody>
-            {teams.map((team, idx) => (
-              <tr key={idx} style={{ borderBottom: "1px solid #eee" }}>
-                <td style={{ padding: "0.5rem" }}><strong>{team.name}</strong></td>
-                <td style={{ padding: "0.5rem" }}>{team.objective}</td>
-                <td style={{ padding: "0.5rem" }}>
-                  <span style={{ 
-                    fontWeight: "bold", 
-                    color: team.status === "Activo" ? "green" : team.status === "Inactivo" ? "orange" : "red" 
-                  }}>
-                    {team.status}
-                  </span>
-                </td>
-                <td style={{ padding: "0.5rem" }}>{team.members}</td>
-                <td style={{ padding: "0.5rem" }}>{team.date}</td>
-                <td style={{ padding: "0.5rem" }}>
-                  <div style={{ display: "flex", gap: "0.25rem", flexWrap: "wrap" }}>
-                    {team.tags.map(tag => (
-                      <span key={tag} style={{ background: "#eee", padding: "0.1rem 0.4rem", borderRadius: "3px", fontSize: "0.7rem" }}>
-                        {tag}
+        <div className="bento-card bento-card-large">
+          <h4 style={{ margin: "0 0 1rem 0", color: "#0f172a" }}>Listado de Equipos</h4>
+          <div className="table-wrapper">
+            <table className="bento-table">
+              <thead>
+                <tr>
+                  <th>Equipo</th>
+                  <th>Objetivo del Proyecto</th>
+                  <th>Estado</th>
+                  <th>Miembros</th>
+                  <th>Fecha de Formación</th>
+                  <th>Habilidades</th>
+                </tr>
+              </thead>
+              <tbody>
+                {teams.map((team, idx) => (
+                  <tr key={idx}>
+                    <td><strong>{team.name}</strong></td>
+                    <td>{team.objective}</td>
+                    <td>
+                      <span style={{ 
+                        fontWeight: "bold", 
+                        color: team.status === "Activo" ? "#16a34a" : team.status === "Inactivo" ? "#f97316" : "#dc2626" 
+                      }}>
+                        {team.status}
                       </span>
-                    ))}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
+                    </td>
+                    <td>{team.members}</td>
+                    <td>{team.date}</td>
+                    <td>
+                      <div style={{ display: "flex", gap: "0.3rem", flexWrap: "wrap" }}>
+                        {team.tags.map(tag => (
+                          <span key={tag} className="project-tag">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

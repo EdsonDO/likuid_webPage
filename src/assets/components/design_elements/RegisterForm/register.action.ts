@@ -1,6 +1,6 @@
 "use server";
 
-import { FormState } from "../types/form-state.type";
+import { FormState } from "./form-state.type";
 import { redirect } from "next/navigation";
 
 export type RegisterFormFields = {
